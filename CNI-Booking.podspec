@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CNI-Booking'
-  s.version          = '1.0.4'
+  s.version          = '1.0.5'
   s.swift_version    = '3.2'
   s.summary          = 'provide methods to push, retrieve and delete bookings from conichi backend'
 
