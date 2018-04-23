@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CNI-Booking_Example' do
+  pod 'CNI-Booking', :path => '../'
+
+  target 'CNI-Booking_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
