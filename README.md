@@ -22,7 +22,7 @@ pod 'CNI-Booking'
 ## Usage
 * CNIBookingManager init with username, password, consumer key, environment
 
-* `import CNIBooking`
+* `import CNI_Booking`
 * Use those `CNIBookingManager` methods
 ```swift
 public class func getBookingsWith(success: @escaping (_ results: [CNIBooking]) -> Void,
