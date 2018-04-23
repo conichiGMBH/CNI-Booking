@@ -1,0 +1,16 @@
+PODS:
+  - CNI-Booking (0.1.0)
+
+DEPENDENCIES:
+  - CNI-Booking (from `../`)
+
+EXTERNAL SOURCES:
+  CNI-Booking:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CNI-Booking: cc9e72a78431b782e1f0fb823d72b7b55504e7db
+
+PODFILE CHECKSUM: 8adf21a60bda8fa838d793090ced06e5f6360db8
+
+COCOAPODS: 1.5.0
