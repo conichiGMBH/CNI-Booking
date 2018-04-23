@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CNI-Booking'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.swift_version    = '3.2'
   s.summary          = 'provide methods to push, retrieve and delete bookings from conichi backend'
 
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/conichiGMBH/CNI-Booking'
   s.license          = { :type => 'Conichi License', :file => 'LICENSE' }
   s.author           = { 'vincentjacquesson' => 'vincent.jacquesson@conichi.com' }
-  s.source           = { :git => 'https://github.com/vincentjacquesson/CNI-Booking.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/conichiGMBH/CNI-Booking.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
 

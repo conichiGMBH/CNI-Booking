@@ -13,18 +13,18 @@
 		1C932593D840C3B3BC11A8681CD3A30F /* Pods-CNI-Booking_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C29C870C49679B258F0CD9D70A4912EE /* Pods-CNI-Booking_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E846DEB137131F80D785BB539D049CF /* Pods-CNI-Booking_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 06E9E2DB5A36A8700C031D150AC5FDB8 /* Pods-CNI-Booking_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CE0BB4B972EC4FE7C872EF0905338CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		6068614B208DE93500D72716 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068614A208DE93500D72716 /* SwiftyJSON.swift */; };
-		60686159208DE96000D72716 /* CNIModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068614D208DE96000D72716 /* CNIModelDelegate.swift */; };
-		6068615A208DE96000D72716 /* CNIHotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068614E208DE96000D72716 /* CNIHotel.swift */; };
-		6068615B208DE96000D72716 /* CNINetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068614F208DE96000D72716 /* CNINetworkConfiguration.swift */; };
-		6068615C208DE96000D72716 /* CNIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686150208DE96000D72716 /* CNIService.swift */; };
-		6068615D208DE96000D72716 /* CNIGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686151208DE96000D72716 /* CNIGuest.swift */; };
-		6068615E208DE96000D72716 /* CNIAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686152208DE96000D72716 /* CNIAddress.swift */; };
-		6068615F208DE96000D72716 /* CNIStay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686153208DE96000D72716 /* CNIStay.swift */; };
-		60686160208DE96000D72716 /* CNIBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686154208DE96000D72716 /* CNIBooking.swift */; };
-		60686161208DE96000D72716 /* CNIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686155208DE96000D72716 /* CNIObject.swift */; };
-		60686162208DE96000D72716 /* CNIBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686157208DE96000D72716 /* CNIBookingManager.swift */; };
-		60686163208DE96000D72716 /* CNIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686158208DE96000D72716 /* CNIRequestManager.swift */; };
+		6068616E208DF23400D72716 /* CNIHotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686165208DF23300D72716 /* CNIHotel.swift */; };
+		6068616F208DF23400D72716 /* CNIBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686166208DF23300D72716 /* CNIBooking.swift */; };
+		60686170208DF23400D72716 /* CNIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686167208DF23300D72716 /* CNIObject.swift */; };
+		60686171208DF23400D72716 /* CNIGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686168208DF23300D72716 /* CNIGuest.swift */; };
+		60686172208DF23400D72716 /* CNIStay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686169208DF23300D72716 /* CNIStay.swift */; };
+		60686173208DF23400D72716 /* CNINetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068616A208DF23300D72716 /* CNINetworkConfiguration.swift */; };
+		60686174208DF23400D72716 /* CNIModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068616B208DF23300D72716 /* CNIModelDelegate.swift */; };
+		60686175208DF23400D72716 /* CNIAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068616C208DF23300D72716 /* CNIAddress.swift */; };
+		60686176208DF23400D72716 /* CNIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068616D208DF23300D72716 /* CNIService.swift */; };
+		60686179208DF23E00D72716 /* CNIBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686177208DF23E00D72716 /* CNIBookingManager.swift */; };
+		6068617A208DF23E00D72716 /* CNIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60686178208DF23E00D72716 /* CNIRequestManager.swift */; };
+		6068617C208DF24600D72716 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6068617B208DF24600D72716 /* SwiftyJSON.swift */; };
 		8EAA730F5081809C57D2FE5A10AB057A /* CNI-Booking-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F259DA88300369D2CCD12E9CD266C878 /* CNI-Booking-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B86905BCB5C8448B5029CF1B97DB7D74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		D39A67C3D25856F1F384F06B62162656 /* Pods-CNI-Booking_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6926F6F237C620A4E7163EED4CC9754A /* Pods-CNI-Booking_Example-dummy.m */; };
@@ -61,18 +61,18 @@
 		4AD687096F38FD99832ACD33743842F0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B17DBAE6C2FAD25806A2FC0B43C1CB7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5326F0031D740E16564C1546B9EE15AF /* Pods-CNI-Booking_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CNI-Booking_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		6068614A208DE93500D72716 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		6068614D208DE96000D72716 /* CNIModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIModelDelegate.swift; sourceTree = "<group>"; };
-		6068614E208DE96000D72716 /* CNIHotel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIHotel.swift; sourceTree = "<group>"; };
-		6068614F208DE96000D72716 /* CNINetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNINetworkConfiguration.swift; sourceTree = "<group>"; };
-		60686150208DE96000D72716 /* CNIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIService.swift; sourceTree = "<group>"; };
-		60686151208DE96000D72716 /* CNIGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIGuest.swift; sourceTree = "<group>"; };
-		60686152208DE96000D72716 /* CNIAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIAddress.swift; sourceTree = "<group>"; };
-		60686153208DE96000D72716 /* CNIStay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIStay.swift; sourceTree = "<group>"; };
-		60686154208DE96000D72716 /* CNIBooking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIBooking.swift; sourceTree = "<group>"; };
-		60686155208DE96000D72716 /* CNIObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIObject.swift; sourceTree = "<group>"; };
-		60686157208DE96000D72716 /* CNIBookingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIBookingManager.swift; sourceTree = "<group>"; };
-		60686158208DE96000D72716 /* CNIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIRequestManager.swift; sourceTree = "<group>"; };
+		60686165208DF23300D72716 /* CNIHotel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIHotel.swift; path = "../CNI-Booking/Classes/Models/CNIHotel.swift"; sourceTree = "<group>"; };
+		60686166208DF23300D72716 /* CNIBooking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIBooking.swift; path = "../CNI-Booking/Classes/Models/CNIBooking.swift"; sourceTree = "<group>"; };
+		60686167208DF23300D72716 /* CNIObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIObject.swift; path = "../CNI-Booking/Classes/Models/CNIObject.swift"; sourceTree = "<group>"; };
+		60686168208DF23300D72716 /* CNIGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIGuest.swift; path = "../CNI-Booking/Classes/Models/CNIGuest.swift"; sourceTree = "<group>"; };
+		60686169208DF23300D72716 /* CNIStay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIStay.swift; path = "../CNI-Booking/Classes/Models/CNIStay.swift"; sourceTree = "<group>"; };
+		6068616A208DF23300D72716 /* CNINetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNINetworkConfiguration.swift; path = "../CNI-Booking/Classes/Models/CNINetworkConfiguration.swift"; sourceTree = "<group>"; };
+		6068616B208DF23300D72716 /* CNIModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIModelDelegate.swift; path = "../CNI-Booking/Classes/Models/CNIModelDelegate.swift"; sourceTree = "<group>"; };
+		6068616C208DF23300D72716 /* CNIAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIAddress.swift; path = "../CNI-Booking/Classes/Models/CNIAddress.swift"; sourceTree = "<group>"; };
+		6068616D208DF23300D72716 /* CNIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIService.swift; path = "../CNI-Booking/Classes/Models/CNIService.swift"; sourceTree = "<group>"; };
+		60686177208DF23E00D72716 /* CNIBookingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIBookingManager.swift; path = "../CNI-Booking/Classes/Managers/CNIBookingManager.swift"; sourceTree = "<group>"; };
+		60686178208DF23E00D72716 /* CNIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNIRequestManager.swift; path = "../CNI-Booking/Classes/Managers/CNIRequestManager.swift"; sourceTree = "<group>"; };
+		6068617B208DF24600D72716 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "CNI-Booking/Classes/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		6123C578C70299A98A77C956FAF1C2D5 /* Pods-CNI-Booking_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CNI-Booking_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6926F6F237C620A4E7163EED4CC9754A /* Pods-CNI-Booking_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CNI-Booking_Example-dummy.m"; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			children = (
 				60686156208DE96000D72716 /* Managers */,
 				6068614C208DE96000D72716 /* Models */,
-				6068614A208DE93500D72716 /* SwiftyJSON.swift */,
+				6068617B208DF24600D72716 /* SwiftyJSON.swift */,
 				F6006CB1266B23D6357949AB9C046337 /* CNI-Booking.podspec */,
 				8DE96E9428B86BFEC6493EF91B1AD6EF /* LICENSE */,
 				FF6BF3A3CD39A46EDC1494462DEB5FE8 /* README.md */,
@@ -168,15 +168,15 @@
 		6068614C208DE96000D72716 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6068614D208DE96000D72716 /* CNIModelDelegate.swift */,
-				6068614E208DE96000D72716 /* CNIHotel.swift */,
-				6068614F208DE96000D72716 /* CNINetworkConfiguration.swift */,
-				60686150208DE96000D72716 /* CNIService.swift */,
-				60686151208DE96000D72716 /* CNIGuest.swift */,
-				60686152208DE96000D72716 /* CNIAddress.swift */,
-				60686153208DE96000D72716 /* CNIStay.swift */,
-				60686154208DE96000D72716 /* CNIBooking.swift */,
-				60686155208DE96000D72716 /* CNIObject.swift */,
+				6068616C208DF23300D72716 /* CNIAddress.swift */,
+				60686166208DF23300D72716 /* CNIBooking.swift */,
+				60686168208DF23300D72716 /* CNIGuest.swift */,
+				60686165208DF23300D72716 /* CNIHotel.swift */,
+				6068616B208DF23300D72716 /* CNIModelDelegate.swift */,
+				6068616A208DF23300D72716 /* CNINetworkConfiguration.swift */,
+				60686167208DF23300D72716 /* CNIObject.swift */,
+				6068616D208DF23300D72716 /* CNIService.swift */,
+				60686169208DF23300D72716 /* CNIStay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -184,8 +184,8 @@
 		60686156208DE96000D72716 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				60686157208DE96000D72716 /* CNIBookingManager.swift */,
-				60686158208DE96000D72716 /* CNIRequestManager.swift */,
+				60686177208DF23E00D72716 /* CNIBookingManager.swift */,
+				60686178208DF23E00D72716 /* CNIRequestManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -413,19 +413,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60686162208DE96000D72716 /* CNIBookingManager.swift in Sources */,
+				60686179208DF23E00D72716 /* CNIBookingManager.swift in Sources */,
+				60686176208DF23400D72716 /* CNIService.swift in Sources */,
+				60686174208DF23400D72716 /* CNIModelDelegate.swift in Sources */,
 				0CD356E79FE9D7126782BC2584778906 /* CNI-Booking-dummy.m in Sources */,
-				6068615D208DE96000D72716 /* CNIGuest.swift in Sources */,
-				6068615F208DE96000D72716 /* CNIStay.swift in Sources */,
-				60686159208DE96000D72716 /* CNIModelDelegate.swift in Sources */,
-				60686160208DE96000D72716 /* CNIBooking.swift in Sources */,
-				6068615E208DE96000D72716 /* CNIAddress.swift in Sources */,
-				6068614B208DE93500D72716 /* SwiftyJSON.swift in Sources */,
-				60686163208DE96000D72716 /* CNIRequestManager.swift in Sources */,
-				6068615A208DE96000D72716 /* CNIHotel.swift in Sources */,
-				6068615C208DE96000D72716 /* CNIService.swift in Sources */,
-				6068615B208DE96000D72716 /* CNINetworkConfiguration.swift in Sources */,
-				60686161208DE96000D72716 /* CNIObject.swift in Sources */,
+				60686175208DF23400D72716 /* CNIAddress.swift in Sources */,
+				60686172208DF23400D72716 /* CNIStay.swift in Sources */,
+				6068616E208DF23400D72716 /* CNIHotel.swift in Sources */,
+				60686173208DF23400D72716 /* CNINetworkConfiguration.swift in Sources */,
+				6068617A208DF23E00D72716 /* CNIRequestManager.swift in Sources */,
+				60686171208DF23400D72716 /* CNIGuest.swift in Sources */,
+				6068616F208DF23400D72716 /* CNIBooking.swift in Sources */,
+				6068617C208DF24600D72716 /* SwiftyJSON.swift in Sources */,
+				60686170208DF23400D72716 /* CNIObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
