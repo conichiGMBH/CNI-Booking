@@ -17,18 +17,21 @@ public class CNIObject: NSObject {
     }
     
     public func parse(dateString: String?) -> Date! {
-        if let dateString = dateString as String! {
-            if let parsedDate = parseDateFormatter.date(from: dateString) {
-                return parsedDate
-            }
+        guard let dateString = dateString else {
+            return Date()
+        }
+
+        if let parsedDate = parseDateFormatter.date(from: dateString) {
+            return parsedDate
         }
         return Date()
     }
 
     public func display(date: Date?) -> String! {
-        if let date = date as Date! {
-            return parseDateFormatter.string(from: date)
+        guard let date = date else {
+            return parseDateFormatter.string(from: Date())
         }
-        return ""
+
+        return parseDateFormatter.string(from: date)
     }
 }
