@@ -21,7 +21,7 @@ public class CNIStay: CNIObject, CNIModelDelegate {
         arrivalDate = parse(dateString: json["arrival_date"].string)
         departureDate = parse(dateString: json["departure_date"].string)
         reservationNumber = json["reservation_number"].string
-        type = json["type"].string
+        type = json["type"].string ?? "email"
         roomType = json["room_type"].string
         roomRate = json["room_rate"].string
         var services = [CNIService]()
@@ -39,7 +39,7 @@ public class CNIStay: CNIObject, CNIModelDelegate {
         dict["arrival_date"] = display(date: arrivalDate)
         dict["departure_date"] = display(date: departureDate)
         dict["reservation_number"] = reservationNumber
-        dict["type"] = type
+        dict["type"] = "email"
         dict["room_type"] = roomType
         dict["room_rate"] = roomRate
         var servicesJSONArray = [[String: Any]]()
