@@ -10,7 +10,7 @@ import UIKit
 
 struct CNIBookingConstants {
     static let bookingsEndpoint = "itinerary/bookings"
-    static let bookingsForIdEndpoint = "itinerary/bookings/id/"
+    static let bookingsForIdEndpoint = "itinerary/bookings/id?value="
 }
 
 public class CNIBookingManager: NSObject {
