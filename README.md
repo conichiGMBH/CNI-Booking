@@ -1,8 +1,8 @@
-# CNI-Booking
+# CNI-Itineraries 
 
-[![Version](https://img.shields.io/cocoapods/v/CNI-Booking.svg?style=flat)](http://cocoapods.org/pods/CNI-Booking)
-[![License](https://img.shields.io/cocoapods/l/CNI-Booking.svg?style=flat)](http://cocoapods.org/pods/CNI-Booking)
-[![Platform](https://img.shields.io/cocoapods/p/CNI-Booking.svg?style=flat)](http://cocoapods.org/pods/CNI-Booking)
+[![Version](https://img.shields.io/cocoapods/v/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries )
+[![License](https://img.shields.io/cocoapods/l/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries )
+[![Platform](https://img.shields.io/cocoapods/p/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries)
 
 ## Example
 
@@ -14,15 +14,13 @@ CNI-Booking is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'CNI-Booking'
+pod 'CNI-Itineraries'
 ```
-
-## Usage
 
 ## Usage
 * CNIBookingManager init with username, password, consumer key, environment
 
-* `import CNI_Booking`
+* `import CNI_Itineraries`
 * Use those `CNIBookingManager` methods
 ```swift
 public class func getBookingsWith(success: @escaping (_ results: [CNIBooking]) -> Void,
@@ -47,7 +45,7 @@ failure: @escaping (_ error: Error) -> Void)
 
 ## Author
 
-vincentjacquesson, vincent.jacquesson@conichi.com
+Joseph Tseng, joseph.tseng@conichi.com
 
 ## License
 
