@@ -8,6 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		0E4DF18667DE165D03DABB51 /* Pods_CNI_Booking_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643C815BED3ADCDEF8BC72C3 /* Pods_CNI_Booking_Tests.framework */; };
+		3B34B26621A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */; };
+		3B34B26D21A411420097FCB7 /* CNI_ItinerariesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B26C21A411420097FCB7 /* CNI_ItinerariesTests.swift */; };
+		3B34B26F21A411420097FCB7 /* CNI_Itineraries.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B34B25F21A411420097FCB7 /* CNI_Itineraries.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B34B27221A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */; };
+		3B34B27321A411420097FCB7 /* CNI_Itineraries.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B34B28C21A411790097FCB7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B27D21A411790097FCB7 /* SwiftyJSON.swift */; };
+		3B34B28D21A411790097FCB7 /* CNIBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B27F21A411790097FCB7 /* CNIBookingManager.swift */; };
+		3B34B28E21A411790097FCB7 /* CNIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28021A411790097FCB7 /* CNIRequestManager.swift */; };
+		3B34B28F21A411790097FCB7 /* CNIModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28221A411790097FCB7 /* CNIModelDelegate.swift */; };
+		3B34B29021A411790097FCB7 /* CNIHotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28321A411790097FCB7 /* CNIHotel.swift */; };
+		3B34B29121A411790097FCB7 /* CNINetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28421A411790097FCB7 /* CNINetworkConfiguration.swift */; };
+		3B34B29221A411790097FCB7 /* CNIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28521A411790097FCB7 /* CNIService.swift */; };
+		3B34B29321A411790097FCB7 /* CNIGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28621A411790097FCB7 /* CNIGuest.swift */; };
+		3B34B29421A411790097FCB7 /* CNIAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28721A411790097FCB7 /* CNIAddress.swift */; };
+		3B34B29521A411790097FCB7 /* CNIStay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28821A411790097FCB7 /* CNIStay.swift */; };
+		3B34B29621A411790097FCB7 /* CNIBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28921A411790097FCB7 /* CNIBooking.swift */; };
+		3B34B29721A411790097FCB7 /* CNIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28A21A411790097FCB7 /* CNIObject.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -18,6 +35,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3B34B26721A411420097FCB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B34B25C21A411420097FCB7;
+			remoteInfo = "CNI-Itineraries";
+		};
+		3B34B26921A411420097FCB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = "CNI-Booking_Example";
+		};
+		3B34B27021A411420097FCB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B34B25C21A411420097FCB7;
+			remoteInfo = "CNI-Itineraries";
+		};
 		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
@@ -27,9 +65,42 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3B34B23521A40FF40097FCB7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3B34B27321A411420097FCB7 /* CNI_Itineraries.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		12BFD7D4B087CCD429F2EE39 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		363C194D8AE7B99E689A4D84 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CNI_Itineraries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B34B25F21A411420097FCB7 /* CNI_Itineraries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CNI_Itineraries.h; sourceTree = "<group>"; };
+		3B34B26021A411420097FCB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B34B26521A411420097FCB7 /* CNI-ItinerariesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CNI-ItinerariesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B34B26C21A411420097FCB7 /* CNI_ItinerariesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNI_ItinerariesTests.swift; sourceTree = "<group>"; };
+		3B34B26E21A411420097FCB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B34B27B21A411790097FCB7 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		3B34B27D21A411790097FCB7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		3B34B27F21A411790097FCB7 /* CNIBookingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIBookingManager.swift; sourceTree = "<group>"; };
+		3B34B28021A411790097FCB7 /* CNIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIRequestManager.swift; sourceTree = "<group>"; };
+		3B34B28221A411790097FCB7 /* CNIModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIModelDelegate.swift; sourceTree = "<group>"; };
+		3B34B28321A411790097FCB7 /* CNIHotel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIHotel.swift; sourceTree = "<group>"; };
+		3B34B28421A411790097FCB7 /* CNINetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNINetworkConfiguration.swift; sourceTree = "<group>"; };
+		3B34B28521A411790097FCB7 /* CNIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIService.swift; sourceTree = "<group>"; };
+		3B34B28621A411790097FCB7 /* CNIGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIGuest.swift; sourceTree = "<group>"; };
+		3B34B28721A411790097FCB7 /* CNIAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIAddress.swift; sourceTree = "<group>"; };
+		3B34B28821A411790097FCB7 /* CNIStay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIStay.swift; sourceTree = "<group>"; };
+		3B34B28921A411790097FCB7 /* CNIBooking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIBooking.swift; sourceTree = "<group>"; };
+		3B34B28A21A411790097FCB7 /* CNIObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNIObject.swift; sourceTree = "<group>"; };
 		58E6A07C98159ACD6A8B0AC9 /* Pods-CNI-Booking_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CNI-Booking_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-CNI-Booking_Example/Pods-CNI-Booking_Example.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* CNI-Booking_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CNI-Booking_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,11 +121,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3B34B25A21A411420097FCB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34B26221A411420097FCB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B34B26621A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				ACD32E677FFCA33F3A46B066 /* Pods_CNI_Booking_Example.framework in Frameworks */,
+				3B34B27221A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,12 +176,79 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3B34B25E21A411420097FCB7 /* CNI-Itineraries */ = {
+			isa = PBXGroup;
+			children = (
+				3B34B27A21A411790097FCB7 /* Assets */,
+				3B34B27C21A411790097FCB7 /* Classes */,
+				3B34B25F21A411420097FCB7 /* CNI_Itineraries.h */,
+				3B34B26021A411420097FCB7 /* Info.plist */,
+			);
+			path = "CNI-Itineraries";
+			sourceTree = "<group>";
+		};
+		3B34B26B21A411420097FCB7 /* CNI-ItinerariesTests */ = {
+			isa = PBXGroup;
+			children = (
+				3B34B26C21A411420097FCB7 /* CNI_ItinerariesTests.swift */,
+				3B34B26E21A411420097FCB7 /* Info.plist */,
+			);
+			path = "CNI-ItinerariesTests";
+			sourceTree = "<group>";
+		};
+		3B34B27A21A411790097FCB7 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3B34B27B21A411790097FCB7 /* .gitkeep */,
+			);
+			name = Assets;
+			path = "../../CNI-Booking/Assets";
+			sourceTree = "<group>";
+		};
+		3B34B27C21A411790097FCB7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3B34B27D21A411790097FCB7 /* SwiftyJSON.swift */,
+				3B34B27E21A411790097FCB7 /* Managers */,
+				3B34B28121A411790097FCB7 /* Models */,
+			);
+			name = Classes;
+			path = "../../CNI-Booking/Classes";
+			sourceTree = "<group>";
+		};
+		3B34B27E21A411790097FCB7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3B34B27F21A411790097FCB7 /* CNIBookingManager.swift */,
+				3B34B28021A411790097FCB7 /* CNIRequestManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		3B34B28121A411790097FCB7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3B34B28221A411790097FCB7 /* CNIModelDelegate.swift */,
+				3B34B28321A411790097FCB7 /* CNIHotel.swift */,
+				3B34B28421A411790097FCB7 /* CNINetworkConfiguration.swift */,
+				3B34B28521A411790097FCB7 /* CNIService.swift */,
+				3B34B28621A411790097FCB7 /* CNIGuest.swift */,
+				3B34B28721A411790097FCB7 /* CNIAddress.swift */,
+				3B34B28821A411790097FCB7 /* CNIStay.swift */,
+				3B34B28921A411790097FCB7 /* CNIBooking.swift */,
+				3B34B28A21A411790097FCB7 /* CNIObject.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for CNI-Booking */,
 				607FACE81AFB9204008FA782 /* Tests */,
+				3B34B25E21A411420097FCB7 /* CNI-Itineraries */,
+				3B34B26B21A411420097FCB7 /* CNI-ItinerariesTests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				243D2052418C4333BD06CF58 /* Pods */,
 				34F22C16D2693C800A6013D1 /* Frameworks */,
@@ -106,6 +260,8 @@
 			children = (
 				607FACD01AFB9204008FA782 /* CNI-Booking_Example.app */,
 				607FACE51AFB9204008FA782 /* CNI-Booking_Tests.xctest */,
+				3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */,
+				3B34B26521A411420097FCB7 /* CNI-ItinerariesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,7 +317,55 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		3B34B25821A411420097FCB7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B34B26F21A411420097FCB7 /* CNI_Itineraries.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		3B34B25C21A411420097FCB7 /* CNI-Itineraries */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B34B27421A411420097FCB7 /* Build configuration list for PBXNativeTarget "CNI-Itineraries" */;
+			buildPhases = (
+				3B34B25821A411420097FCB7 /* Headers */,
+				3B34B25921A411420097FCB7 /* Sources */,
+				3B34B25A21A411420097FCB7 /* Frameworks */,
+				3B34B25B21A411420097FCB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CNI-Itineraries";
+			productName = "CNI-Itineraries";
+			productReference = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3B34B26421A411420097FCB7 /* CNI-ItinerariesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B34B27721A411420097FCB7 /* Build configuration list for PBXNativeTarget "CNI-ItinerariesTests" */;
+			buildPhases = (
+				3B34B26121A411420097FCB7 /* Sources */,
+				3B34B26221A411420097FCB7 /* Frameworks */,
+				3B34B26321A411420097FCB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B34B26821A411420097FCB7 /* PBXTargetDependency */,
+				3B34B26A21A411420097FCB7 /* PBXTargetDependency */,
+			);
+			name = "CNI-ItinerariesTests";
+			productName = "CNI-ItinerariesTests";
+			productReference = 3B34B26521A411420097FCB7 /* CNI-ItinerariesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		607FACCF1AFB9204008FA782 /* CNI-Booking_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "CNI-Booking_Example" */;
@@ -171,10 +375,12 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				9105EDFB7F440185040F5295 /* [CP] Embed Pods Frameworks */,
+				3B34B23521A40FF40097FCB7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3B34B27121A411420097FCB7 /* PBXTargetDependency */,
 			);
 			name = "CNI-Booking_Example";
 			productName = "CNI-Booking";
@@ -206,10 +412,21 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
+					3B34B25C21A411420097FCB7 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = DRL7ER946T;
+						ProvisioningStyle = Automatic;
+					};
+					3B34B26421A411420097FCB7 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = DRL7ER946T;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = DRL7ER946T;
@@ -238,11 +455,27 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* CNI-Booking_Example */,
 				607FACE41AFB9204008FA782 /* CNI-Booking_Tests */,
+				3B34B25C21A411420097FCB7 /* CNI-Itineraries */,
+				3B34B26421A411420097FCB7 /* CNI-ItinerariesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3B34B25B21A411420097FCB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34B26321A411420097FCB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +553,33 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3B34B25921A411420097FCB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B34B29621A411790097FCB7 /* CNIBooking.swift in Sources */,
+				3B34B29421A411790097FCB7 /* CNIAddress.swift in Sources */,
+				3B34B29221A411790097FCB7 /* CNIService.swift in Sources */,
+				3B34B29721A411790097FCB7 /* CNIObject.swift in Sources */,
+				3B34B29121A411790097FCB7 /* CNINetworkConfiguration.swift in Sources */,
+				3B34B29521A411790097FCB7 /* CNIStay.swift in Sources */,
+				3B34B28D21A411790097FCB7 /* CNIBookingManager.swift in Sources */,
+				3B34B29321A411790097FCB7 /* CNIGuest.swift in Sources */,
+				3B34B28E21A411790097FCB7 /* CNIRequestManager.swift in Sources */,
+				3B34B29021A411790097FCB7 /* CNIHotel.swift in Sources */,
+				3B34B28C21A411790097FCB7 /* SwiftyJSON.swift in Sources */,
+				3B34B28F21A411790097FCB7 /* CNIModelDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B34B26121A411420097FCB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B34B26D21A411420097FCB7 /* CNI_ItinerariesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -340,6 +600,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3B34B26821A411420097FCB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B34B25C21A411420097FCB7 /* CNI-Itineraries */;
+			targetProxy = 3B34B26721A411420097FCB7 /* PBXContainerItemProxy */;
+		};
+		3B34B26A21A411420097FCB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* CNI-Booking_Example */;
+			targetProxy = 3B34B26921A411420097FCB7 /* PBXContainerItemProxy */;
+		};
+		3B34B27121A411420097FCB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B34B25C21A411420097FCB7 /* CNI-Itineraries */;
+			targetProxy = 3B34B27021A411420097FCB7 /* PBXContainerItemProxy */;
+		};
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* CNI-Booking_Example */;
@@ -367,6 +642,138 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3B34B27521A411420097FCB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DRL7ER946T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CNI-Itineraries/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.conichi.CNI-Itineraries";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3B34B27621A411420097FCB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DRL7ER946T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CNI-Itineraries/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.conichi.CNI-Itineraries";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3B34B27821A411420097FCB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DRL7ER946T;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CNI-ItinerariesTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.conichi.CNI-ItinerariesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CNI-Booking_Example.app/CNI-Booking_Example";
+			};
+			name = Debug;
+		};
+		3B34B27921A411420097FCB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DRL7ER946T;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CNI-ItinerariesTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.conichi.CNI-ItinerariesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CNI-Booking_Example.app/CNI-Booking_Example";
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -470,8 +877,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7E3F1E4784FCFA4DB1C556C /* Pods-CNI-Booking_Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = DRL7ER946T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "CNI-Booking/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -486,8 +899,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 58E6A07C98159ACD6A8B0AC9 /* Pods-CNI-Booking_Example.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = DRL7ER946T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "CNI-Booking/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -541,6 +960,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3B34B27421A411420097FCB7 /* Build configuration list for PBXNativeTarget "CNI-Itineraries" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B34B27521A411420097FCB7 /* Debug */,
+				3B34B27621A411420097FCB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B34B27721A411420097FCB7 /* Build configuration list for PBXNativeTarget "CNI-ItinerariesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B34B27821A411420097FCB7 /* Debug */,
+				3B34B27921A411420097FCB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "CNI-Booking" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
