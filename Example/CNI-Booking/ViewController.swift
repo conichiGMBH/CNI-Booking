@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CNI_Booking
+import CNI_Itineraries
 
 class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!

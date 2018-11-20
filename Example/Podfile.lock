@@ -1,16 +1,16 @@
 PODS:
-  - CNI-Booking (0.1.0)
+  - CNI-Itineraries (1.0.11)
 
 DEPENDENCIES:
-  - CNI-Booking (from `../`)
+  - CNI-Itineraries (from `../`)
 
 EXTERNAL SOURCES:
-  CNI-Booking:
+  CNI-Itineraries:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CNI-Booking: cc9e72a78431b782e1f0fb823d72b7b55504e7db
+  CNI-Itineraries: 957b00ea235d4c32d03fcbaa999413fcad4e2e89
 
-PODFILE CHECKSUM: 8adf21a60bda8fa838d793090ced06e5f6360db8
+PODFILE CHECKSUM: dd96b6d6abc257c51cddf9c9f0870f2af5b382cd
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

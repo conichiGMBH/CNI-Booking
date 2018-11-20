@@ -1,5 +1,4 @@
 import XCTest
-import CNI_Booking
 
 class Tests: XCTestCase {
     

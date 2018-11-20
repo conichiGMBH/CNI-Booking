@@ -11,8 +11,6 @@
 		3B34B26621A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */; };
 		3B34B26D21A411420097FCB7 /* CNI_ItinerariesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B26C21A411420097FCB7 /* CNI_ItinerariesTests.swift */; };
 		3B34B26F21A411420097FCB7 /* CNI_Itineraries.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B34B25F21A411420097FCB7 /* CNI_Itineraries.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3B34B27221A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */; };
-		3B34B27321A411420097FCB7 /* CNI_Itineraries.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B34B25D21A411420097FCB7 /* CNI_Itineraries.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B34B28C21A411790097FCB7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B27D21A411790097FCB7 /* SwiftyJSON.swift */; };
 		3B34B28D21A411790097FCB7 /* CNIBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B27F21A411790097FCB7 /* CNIBookingManager.swift */; };
 		3B34B28E21A411790097FCB7 /* CNIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B34B28021A411790097FCB7 /* CNIRequestManager.swift */; };
@@ -49,13 +47,6 @@
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
 			remoteInfo = "CNI-Booking_Example";
 		};
-		3B34B27021A411420097FCB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3B34B25C21A411420097FCB7;
-			remoteInfo = "CNI-Itineraries";
-		};
 		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
@@ -72,7 +63,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3B34B27321A411420097FCB7 /* CNI_Itineraries.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,7 +131,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACD32E677FFCA33F3A46B066 /* Pods_CNI_Booking_Example.framework in Frameworks */,
-				3B34B27221A411420097FCB7 /* CNI_Itineraries.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,7 +369,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3B34B27121A411420097FCB7 /* PBXTargetDependency */,
 			);
 			name = "CNI-Booking_Example";
 			productName = "CNI-Booking";
@@ -521,11 +509,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CNI-Booking_Example/Pods-CNI-Booking_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CNI-Booking/CNI_Booking.framework",
+				"${BUILT_PRODUCTS_DIR}/CNI-Itineraries/CNI_Itineraries.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CNI_Booking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CNI_Itineraries.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -609,11 +597,6 @@
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* CNI-Booking_Example */;
 			targetProxy = 3B34B26921A411420097FCB7 /* PBXContainerItemProxy */;
-		};
-		3B34B27121A411420097FCB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3B34B25C21A411420097FCB7 /* CNI-Itineraries */;
-			targetProxy = 3B34B27021A411420097FCB7 /* PBXContainerItemProxy */;
 		};
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
