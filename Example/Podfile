@@ -1,9 +1,9 @@
 use_frameworks!
 
-target 'CNI-Booking_Example' do
+target 'CNI-Itineraries Example' do
   pod 'CNI-Itineraries', :path => '../'
 
-  target 'CNI-Booking_Tests' do
+  target 'CNI-Itineraries Example_Tests' do
     inherit! :search_paths
 
     
