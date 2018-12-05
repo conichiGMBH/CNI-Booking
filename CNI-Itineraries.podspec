@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint CNI-Booking.podspec' to ensure this is a
+# Be sure to run `pod lib lint CNI-Itineraries.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -24,13 +24,6 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'CNI-Booking/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'CNI-Booking' => ['CNI-Booking/Assets/*.png']
-  # }
+  s.source_files = 'Source/Classes/**/*'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end

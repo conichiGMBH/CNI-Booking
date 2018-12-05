@@ -10,7 +10,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-CNI-Booking is available through [CocoaPods](http://cocoapods.org). To install
+CNI-Itineraries is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
@@ -49,4 +49,4 @@ Joseph Tseng, joseph.tseng@conichi.com
 
 ## License
 
-CNI-Booking is available under the MIT license. See the LICENSE file for more info.
+CNI-Itineraries is available under the MIT license. See the LICENSE file for more info.
