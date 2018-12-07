@@ -1,0 +1,15 @@
+//
+//  Warnings.xcconfig
+//
+//
+//  Created by Anton Domashnev on 02/09/16.
+//
+//
+
+WARNING_CFLAGS = -Weverything -Wno-gnu-statement-expression -Wno-objc-missing-property-synthesis -Wno-gnu-zero-variadic-macro-arguments -Wno-cstring-format-directive -Wno-missing-variable-declarations -Wno-auto-import
+GCC_TREAT_WARNINGS_AS_ERRORS = YES
+GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES
+GCC_WARN_UNUSED_LABEL = YES
+CLANG_WARN_ASSIGN_ENUM = YES
+CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES
+CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES

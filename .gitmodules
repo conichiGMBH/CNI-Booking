@@ -1,0 +1,3 @@
+[submodule "config/conichi"]
+	path = config/conichi
+	url = https://github.com/conichiGMBH/ios-configuration

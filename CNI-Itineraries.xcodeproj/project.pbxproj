@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BC0895321BA4BB500310A6A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BC0895221BA4BB500310A6A /* Podfile */; };
 		3BF02ED121B7B73900D6D432 /* CNI_Itineraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF02EC721B7B73900D6D432 /* CNI_Itineraries.framework */; };
 		3BF02ED621B7B73900D6D432 /* CNI_ItinerariesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02ED521B7B73900D6D432 /* CNI_ItinerariesTests.swift */; };
 		3BF02EF121B7B76C00D6D432 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02EE321B7B76C00D6D432 /* SwiftyJSON.swift */; };
@@ -26,6 +27,8 @@
 		3BF02F7821B7BED200D6D432 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3BF02F7521B7BED200D6D432 /* LICENSE */; };
 		3BF02F7921B7BED200D6D432 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3BF02F7621B7BED200D6D432 /* README.md */; };
 		3BF02F7B21B7C5FA00D6D432 /* CHANGELOG.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3BF02F7A21B7C5FA00D6D432 /* CHANGELOG.yml */; };
+		540BE800CDA1CCFF8DF36CE3 /* Pods_CNI_ItinerariesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3527B1100BBB4B13615E951D /* Pods_CNI_ItinerariesTests.framework */; };
+		948966FF381CD82BB8F10537 /* Pods_CNI_Itineraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DC99BEB6CBCB27E1B70A94 /* Pods_CNI_Itineraries.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3527B1100BBB4B13615E951D /* Pods_CNI_ItinerariesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CNI_ItinerariesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BC0895221BA4BB500310A6A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		3BF02EC721B7B73900D6D432 /* CNI_Itineraries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CNI_Itineraries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF02ED021B7B73900D6D432 /* CNI-ItinerariesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CNI-ItinerariesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF02ED521B7B73900D6D432 /* CNI_ItinerariesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNI_ItinerariesTests.swift; sourceTree = "<group>"; };
@@ -61,6 +66,11 @@
 		3BF02F7521B7BED200D6D432 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		3BF02F7621B7BED200D6D432 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		3BF02F7A21B7C5FA00D6D432 /* CHANGELOG.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.yml; sourceTree = SOURCE_ROOT; };
+		525CEFBB8E581A125F95C4E9 /* Pods-CNI-ItinerariesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CNI-ItinerariesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CNI-ItinerariesTests/Pods-CNI-ItinerariesTests.release.xcconfig"; sourceTree = "<group>"; };
+		67DC99BEB6CBCB27E1B70A94 /* Pods_CNI_Itineraries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CNI_Itineraries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		754C558D2987A5CE05C894D6 /* Pods-CNI-ItinerariesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CNI-ItinerariesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CNI-ItinerariesTests/Pods-CNI-ItinerariesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CDEBD67F41BB6B0E53A29AF8 /* Pods-CNI-Itineraries.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CNI-Itineraries.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CNI-Itineraries/Pods-CNI-Itineraries.debug.xcconfig"; sourceTree = "<group>"; };
+		EB71B4C1CEAF52105B1A719F /* Pods-CNI-Itineraries.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CNI-Itineraries.release.xcconfig"; path = "Pods/Target Support Files/Pods-CNI-Itineraries/Pods-CNI-Itineraries.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				948966FF381CD82BB8F10537 /* Pods_CNI_Itineraries.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BF02ED121B7B73900D6D432 /* CNI_Itineraries.framework in Frameworks */,
+				540BE800CDA1CCFF8DF36CE3 /* Pods_CNI_ItinerariesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +100,8 @@
 				3BF02EE121B7B76C00D6D432 /* Source */,
 				3BF02ED421B7B73900D6D432 /* CNI-ItinerariesTests */,
 				3BF02EC821B7B73900D6D432 /* Products */,
+				6910E4F8D67921F9496080E3 /* Pods */,
+				3E8BC61C66222C7141EE581F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,8 +176,29 @@
 				3BF02F7521B7BED200D6D432 /* LICENSE */,
 				3BF02F7621B7BED200D6D432 /* README.md */,
 				3BF02F7A21B7C5FA00D6D432 /* CHANGELOG.yml */,
+				3BC0895221BA4BB500310A6A /* Podfile */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3E8BC61C66222C7141EE581F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				67DC99BEB6CBCB27E1B70A94 /* Pods_CNI_Itineraries.framework */,
+				3527B1100BBB4B13615E951D /* Pods_CNI_ItinerariesTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6910E4F8D67921F9496080E3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CDEBD67F41BB6B0E53A29AF8 /* Pods-CNI-Itineraries.debug.xcconfig */,
+				EB71B4C1CEAF52105B1A719F /* Pods-CNI-Itineraries.release.xcconfig */,
+				754C558D2987A5CE05C894D6 /* Pods-CNI-ItinerariesTests.debug.xcconfig */,
+				525CEFBB8E581A125F95C4E9 /* Pods-CNI-ItinerariesTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +219,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BF02EDB21B7B73900D6D432 /* Build configuration list for PBXNativeTarget "CNI-Itineraries" */;
 			buildPhases = (
+				E46096D3D778319EFCF239F2 /* [CP] Check Pods Manifest.lock */,
 				3BF02EC221B7B73900D6D432 /* Headers */,
 				3BF02EC321B7B73900D6D432 /* Sources */,
 				3BF02EC421B7B73900D6D432 /* Frameworks */,
@@ -202,6 +238,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BF02EDE21B7B73900D6D432 /* Build configuration list for PBXNativeTarget "CNI-ItinerariesTests" */;
 			buildPhases = (
+				480475A4253B44290936755F /* [CP] Check Pods Manifest.lock */,
 				3BF02ECC21B7B73900D6D432 /* Sources */,
 				3BF02ECD21B7B73900D6D432 /* Frameworks */,
 				3BF02ECE21B7B73900D6D432 /* Resources */,
@@ -258,6 +295,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC0895321BA4BB500310A6A /* Podfile in Resources */,
 				3BF02F7921B7BED200D6D432 /* README.md in Resources */,
 				3BF02F7B21B7C5FA00D6D432 /* CHANGELOG.yml in Resources */,
 				3BF02F7821B7BED200D6D432 /* LICENSE in Resources */,
@@ -273,6 +311,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		480475A4253B44290936755F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CNI-ItinerariesTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E46096D3D778319EFCF239F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CNI-Itineraries-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3BF02EC321B7B73900D6D432 /* Sources */ = {
@@ -437,6 +522,7 @@
 		};
 		3BF02EDC21B7B73900D6D432 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CDEBD67F41BB6B0E53A29AF8 /* Pods-CNI-Itineraries.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -462,6 +548,7 @@
 		};
 		3BF02EDD21B7B73900D6D432 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB71B4C1CEAF52105B1A719F /* Pods-CNI-Itineraries.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -487,6 +574,7 @@
 		};
 		3BF02EDF21B7B73900D6D432 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 754C558D2987A5CE05C894D6 /* Pods-CNI-ItinerariesTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -506,6 +594,7 @@
 		};
 		3BF02EE021B7B73900D6D432 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 525CEFBB8E581A125F95C4E9 /* Pods-CNI-ItinerariesTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

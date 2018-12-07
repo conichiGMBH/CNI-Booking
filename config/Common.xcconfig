@@ -1,0 +1,11 @@
+//
+//  Common.xcconfig
+//  
+//
+//  Created by Anton Domashnev on 02/09/16.
+//
+//
+
+#include "Warnings.xcconfig"
+
+CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES
