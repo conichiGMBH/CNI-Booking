@@ -2,6 +2,7 @@
 upcoming:
   version: 1.0.12
   notes:
+  - Add setup files
   - Restructure project workspace
 releases:
 - version: 1.0.11
