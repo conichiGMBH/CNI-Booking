@@ -1,0 +1,133 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  before_all do
+    skip_docs
+    import_shared_fastfile
+  end
+
+  ######################### PUBLIC LANES ##########################
+
+  desc "Release a new version of the ios-sdk. Uploading a new release to a GitHub and CocoaPods trunk"
+  desc "Before doing so don't forget to follow check all steps in RELEASING.md"
+  lane :release do
+    ensure_branch
+
+    cocoapods_lint
+
+    # Move upcoming to releases in changelog
+    upcoming_version = get_upcoming_version.clone
+    put_upcoming_to_releases
+
+    podspecs_version_bump(version: upcoming_version)
+
+    release_branch = ENV['GITHUB_RELEASE_BRANCH']
+    remote = ENV['GITHUB_REMOTE']
+    git_add_or_update_tag(
+      tag_name: upcoming_version,
+      remote: remote,
+      branch: release_branch
+    )
+
+    push_to_git_remote(
+      remote: remote,
+      local_branch: release_branch,
+      remote_branch: release_branch
+    )
+
+    make_github_release(version: upcoming_version)
+
+    podspecs_push
+  end
+
+  ######################### PRIVATE LANES ##########################
+
+  desc "Build frameworks with Carthage"
+  private_lane :build_frameworks do
+    framework_name = "#{ENV['ITININERARIES_FRAMEWORK']}.framework.zip"
+
+    cni_carthage(
+      no_skip_current: true,
+      command: "build"
+    )
+
+    cni_carthage(
+      frameworks: [ENV['ITININERARIES_FRAMEWORK']],
+      output: framework_name,
+      command: "archive"
+    )
+
+    [framework_name]
+  end
+
+  desc "Push podspecs to conichi specs repo"
+  private_lane :podspec_push do
+  	pod_push(path: ENV['ITININERARIES_PODSPEC'], repo: ENV['CONICHI_PODS_REPO_ORGANIZATION'], sources: [ENV['PRIVATE_CONICHI_PODS_SPECS'], ENV['COCOAPODS_MASTER_SPECS']], allow_warnings: true)
+  end
+
+  desc "Create or updaet github release with the given version"
+  private_lane :make_github_release do |options|
+    assets = build_frameworks
+    tag_name = options[:version]
+    upcoming = get_releases[0]
+    upcoming_notes = "* #{upcoming["notes"].join "\n* "} \n\n"
+    set_or_update_github_release(
+      release_name: tag_name,
+      repository_name: ENV['GITHUB_REPOSITORY'],
+      description: upcoming_notes,
+      tag_name: tag_name,
+      api_token: ENV['CONICHI_CI_GITHUB_TOKEN'],
+      upload_assets: assets
+    )
+  end
+
+  desc "Bump podspec version"
+  private_lane :podspecs_version_bump do |options|
+    version = options[:version]
+    version_bump_podspec(path: ENV['ITININERARIES_PODSPEC'], version_number: version)
+
+    git_commit_shell(message: "Bump podspecs version to #{version}")
+  end
+
+  desc "Lint all podspecs by running `pod lib lint`"
+  private_lane :cocoapods_lint do
+    pod_lib_lint(
+      sources: [ENV['PRIVATE_CONICHI_PODS_SPECS'], ENV['COCOAPODS_MASTER_SPECS']],
+      allow_warnings: true
+    )
+  end
+
+  desc "Ensure the branch is a release branch and no uncommitted changes"
+  private_lane :ensure_branch do
+    release_branch = ENV['GITHUB_RELEASE_BRANCH']
+    ensure_git_branch(branch: release_branch)
+
+    ensure_git_status_clean
+  end
+
+  desc "Import common shared Fastfile"
+  private_lane :import_shared_fastfile do
+    import_from_git(
+      url: "git@github.com:#{ENV['GITHUB_IOS_FASTLANE_REPOSITORY']}",
+      branch: 'HEAD',
+      path: 'fastlane/Fastfile'
+    )
+  end
+
+end

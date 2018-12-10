@@ -2,6 +2,7 @@
 upcoming:
   version: 1.0.12
   notes:
+  - Add fastlane for releasing
   - Add setup files
   - Restructure project workspace
 releases:
