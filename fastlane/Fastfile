@@ -24,7 +24,7 @@ platform :ios do
 
   ######################### PUBLIC LANES ##########################
 
-  desc "Release a new version of the ios-sdk. Uploading a new release to a GitHub and CocoaPods trunk"
+  desc "Release a new version of the CNI-Itineraries. Uploading a new release to a GitHub and CocoaPods trunk"
   desc "Before doing so don't forget to follow check all steps in RELEASING.md"
   lane :release do
     ensure_branch
@@ -60,7 +60,7 @@ platform :ios do
 
   desc "Build frameworks with Carthage"
   private_lane :build_frameworks do
-    framework_name = "#{ENV['ITININERARIES_FRAMEWORK']}.framework.zip"
+    framework_name = "#{ENV['ITINERARIES_FRAMEWORK']}.framework.zip"
 
     cni_carthage(
       no_skip_current: true,
@@ -68,7 +68,7 @@ platform :ios do
     )
 
     cni_carthage(
-      frameworks: [ENV['ITININERARIES_FRAMEWORK']],
+      frameworks: [ENV['ITINERARIES_FRAMEWORK']],
       output: framework_name,
       command: "archive"
     )
