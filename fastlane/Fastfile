@@ -78,7 +78,7 @@ platform :ios do
 
   desc "Push podspecs to conichi specs repo"
   private_lane :podspec_push do
-  	pod_push(path: ENV['ITININERARIES_PODSPEC'], repo: ENV['CONICHI_PODS_REPO_ORGANIZATION'], sources: [ENV['PRIVATE_CONICHI_PODS_SPECS'], ENV['COCOAPODS_MASTER_SPECS']], allow_warnings: true)
+  	pod_push(path: ENV['ITINERARIES_PODSPEC'], repo: ENV['CONICHI_PODS_REPO_ORGANIZATION'], sources: [ENV['PRIVATE_CONICHI_PODS_SPECS'], ENV['COCOAPODS_MASTER_SPECS']], allow_warnings: true)
   end
 
   desc "Create or updaet github release with the given version"
@@ -100,7 +100,7 @@ platform :ios do
   desc "Bump podspec version"
   private_lane :podspecs_version_bump do |options|
     version = options[:version]
-    version_bump_podspec(path: ENV['ITININERARIES_PODSPEC'], version_number: version)
+    version_bump_podspec(path: ENV['ITINERARIES_PODSPEC'], version_number: version)
 
     git_commit_shell(message: "Bump podspecs version to #{version}")
   end
