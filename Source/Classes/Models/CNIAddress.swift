@@ -8,19 +8,6 @@
 
 import UIKit
 
-public struct Address: Codable {
-    public private(set) var streetName: String
-    public private(set) var cityName: String
-    public private(set) var zipCode: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case streetName = "street_name"
-        case cityName = "city_name"
-        case zipCode = "zip"
-    }
-
-}
-
 public class CNIAddress: CNIObject, CNIModelDelegate {
     public var streetName: String?
     public var cityName: String?

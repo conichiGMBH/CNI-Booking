@@ -8,13 +8,6 @@
 
 import UIKit
 
-public struct Hotel: Codable {
-    public private(set) var name: String
-    public private(set) var email: String
-    public private(set) var address: Address
-    public private(set) var phones: [String]
-}
-
 public class CNIHotel: CNIObject, CNIModelDelegate {
     public var name: String?
     public var email: String?
