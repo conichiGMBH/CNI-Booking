@@ -18,7 +18,7 @@ enum CNIEnvironment {
 struct CNINetworkConstants {
     static let devBaseURL = "https://dev.app.conichi.com/api/v3/"
     static let stagingBaseURL = "https://staging.app.conichi.com/api/v3/"
-    static let productionBaseURL = "https://app.conichi.com/api/v3"
+    static let productionBaseURL = "https://app.conichi.com/api/v3/"
 }
 
 class CNINetworkConfiguration: NSObject {
