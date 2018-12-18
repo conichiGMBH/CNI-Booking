@@ -51,9 +51,9 @@ platform :ios do
       remote_branch: release_branch
     )
 
-    make_github_release(version: upcoming_version)
+    #make_github_release(version: upcoming_version)
 
-    podspecs_push
+    podspec_push
   end
 
   ######################### PRIVATE LANES ##########################
