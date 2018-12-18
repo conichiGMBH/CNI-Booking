@@ -43,7 +43,7 @@
 
 /* Begin PBXFileReference section */
 		3527B1100BBB4B13615E951D /* Pods_CNI_ItinerariesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CNI_ItinerariesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BC0895221BA4BB500310A6A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		3BC0895221BA4BB500310A6A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3BF02EC721B7B73900D6D432 /* CNI_Itineraries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CNI_Itineraries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF02ED021B7B73900D6D432 /* CNI-ItinerariesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CNI-ItinerariesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF02ED521B7B73900D6D432 /* CNI_ItinerariesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNI_ItinerariesTests.swift; sourceTree = "<group>"; };
