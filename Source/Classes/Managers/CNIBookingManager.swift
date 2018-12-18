@@ -26,6 +26,29 @@ public class CNIBookingManager: NSObject {
                                            environment: environment)
     }
     
+    public func fetchBookings(success: @escaping (_ results: [Booking]) -> Void,
+                              failure: @escaping (_ error: Error) -> Void) {
+        guard let requestManager = requestManager else {
+            failure(CNIHttpError.unauthorized)
+            return
+        }
+        
+        requestManager
+            .get(endpoint: CNIBookingConstants.bookingsEndpoint,
+                 success: { (data) in
+                    typealias Bookings = [Booking]
+                    let itineraries = try? JSONDecoder().decode(Bookings.self, from: data)
+
+                    DispatchQueue.main.async {
+                        success(itineraries ?? [])
+                    }
+            }) { (error) in
+                DispatchQueue.main.async {
+                    failure(error)
+                }
+        }
+    }
+    
     public func getBookingsWith(success: @escaping (_ results: [CNIBooking]) -> Void,
                                          failure: @escaping (_ error: Error) -> Void) {
         guard let requestManager = requestManager else {

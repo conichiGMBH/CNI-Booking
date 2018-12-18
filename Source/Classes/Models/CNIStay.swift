@@ -8,6 +8,26 @@
 
 import UIKit
 
+public struct Stay: Codable {
+    public private(set) var arrivalDate: Date
+    public private(set) var departureDate: Date
+    public private(set) var reservationNumber: String
+    public private(set) var type: String
+    public private(set) var roomType: String
+    public private(set) var roomRate: String
+    public private(set) var services: [Service]
+    
+    private enum CodingKeys: String, CodingKey {
+        case arrivalDate = "arrival_date"
+        case departureDate = "departure_date"
+        case reservationNumber = "reservation_number"
+        case type
+        case roomType = "room_type"
+        case roomRate = "room_rate"
+        case services
+    }
+}
+
 public class CNIStay: CNIObject, CNIModelDelegate {
     public var arrivalDate: Date?
     public var departureDate: Date?

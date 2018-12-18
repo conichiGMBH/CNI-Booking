@@ -8,6 +8,18 @@
 
 import UIKit
 
+public struct Service: Codable {
+    public private(set) var serviceDescription: String
+    public private(set) var amount: String
+    public private(set) var currency: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case serviceDescription = "description"
+        case amount
+        case currency
+    }
+}
+
 public class CNIService: CNIObject, CNIModelDelegate {
     public var serviceDescription: String?
     public var amount: Double?
