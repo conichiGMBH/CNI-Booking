@@ -1,14 +1,16 @@
 ---
 upcoming:
-  version: 1.0.12
+  version: 
+  notes: 
+releases:
+- version: 1.0.12
   notes:
   - Add fastlane for releasing
   - Add setup files
   - Restructure project workspace
-releases:
 - version: 1.0.11
-  notes:
+  notes: 
 - version: 1.0.0
-  notes:
+  notes: 
 - version: 0.0.0
   notes: 
