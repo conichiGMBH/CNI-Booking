@@ -36,12 +36,18 @@ public class CNIBookingManager: NSObject {
         requestManager
             .get(endpoint: CNIBookingConstants.bookingsEndpoint,
                  success: { (data) in
-                    typealias Bookings = [Booking]
-                    let itineraries = try? JSONDecoder().decode(Bookings.self, from: data)
-
-                    DispatchQueue.main.async {
-                        success(itineraries ?? [])
+                    do {
+                        let itineraries = try JSONDecoder().decode(Bookings.self, from: data)
+                        
+                        DispatchQueue.main.async {
+                            success(itineraries.bookings)
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            failure(error)
+                        }
                     }
+                    
             }) { (error) in
                 DispatchQueue.main.async {
                     failure(error)

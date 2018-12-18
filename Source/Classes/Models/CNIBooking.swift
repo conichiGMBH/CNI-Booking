@@ -8,6 +8,10 @@
 
 import UIKit
 
+public struct Bookings: Codable {
+    public private(set) var bookings: [Booking]
+}
+
 public struct Booking: Codable {
     public private(set) var stay: Stay
     public private(set) var hotel: Hotel

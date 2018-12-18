@@ -21,26 +21,36 @@ class ViewController: UIViewController {
         activityIndicator.isHidden = true
         activityIndicator.startAnimating()
         
-        bookingManager = CNIBookingManager(username: "",
-                                           password: "",
-                                           consumerKey: "",
-                                           environment: "")
+        bookingManager = CNIBookingManager(username: "cytric",
+                                           password: "pwGndH8bybWyf7hB",
+                                           consumerKey: "U7emRqgJt3dpiwBW",
+                                           environment: "staging")
     }
     
     @IBAction func getButtonAction(_ sender: Any) {
         textView.text = "\n" + textView.text
         activityIndicator.isHidden = false
-        bookingManager?.getBookingsWith(success: { (itineraries) in
-            var result = ""
-            for itinerary in itineraries {
-                result = result + "\(itinerary.guest?.lastName ?? "") in \(itinerary.hotel?.name ?? "") (\(itinerary.stay?.reservationNumber ?? ""))\n"
-            }
+        
+        bookingManager?.fetchBookings(success: { (itineraries) in
+            let result = itineraries.compactMap({ "\($0.guest.lastName) in \($0.hotel.name) \($0.stay.reservationNumber) \n" }).reduce("", +)
             self.activityIndicator.isHidden = true
             self.textView.text = result + self.textView.text
-        }) { (error) in
+        }, failure: { (error) in
             self.activityIndicator.isHidden = true
             self.textView.text = "Error: \(error)" + self.textView.text + "\n"
-        }
+        })
+        
+//        bookingManager?.getBookingsWith(success: { (itineraries) in
+//            var result = ""
+//            for itinerary in itineraries {
+//                result = result + "\(itinerary.guest?.lastName ?? "") in \(itinerary.hotel?.name ?? "") (\(itinerary.stay?.reservationNumber ?? ""))\n"
+//            }
+//            self.activityIndicator.isHidden = true
+//            self.textView.text = result + self.textView.text
+//        }) { (error) in
+//            self.activityIndicator.isHidden = true
+//            self.textView.text = "Error: \(error)" + self.textView.text + "\n"
+//        }
     }
     
     @IBAction func getForIDButtonAction(_ sender: Any) {
@@ -119,9 +129,9 @@ extension ViewController {
         let guest = CNIGuest()
         guest.map(json: [
             "id": "42424242",
-            "first_name": "Vincent",
-            "last_name": "Jacquesson",
-            "email": "vincent.jacquesson@conichi.com",
+            "first_name": "Joseph",
+            "last_name": "Tseng",
+            "email": "joseph.tseng@conichi.com",
             "phone": "013333333333"
             ])
         return guest
@@ -130,7 +140,7 @@ extension ViewController {
     func aHotel() -> CNIHotel {
         let hotel = CNIHotel()
         hotel.map(json: [
-            "name": "conichi",
+            "name": "Smarthotel Grand City",
             "email": "conichi@conichi.com",
             "address": [
                 "street_name": "Ohlauer Str. 43",
@@ -146,9 +156,12 @@ extension ViewController {
     
     func aStay() -> CNIStay {
         let stay = CNIStay()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let today = Date()
         stay.map(json: [
-            "arrival_date": "2018-06-26",
-            "departure_date": "2018-06-27",
+            "arrival_date": dateFormatter.string(from: today),
+            "departure_date": dateFormatter.string(from: Date(timeInterval: 60*60*24, since: today)),
             "reservation_number": "\(Date().timeIntervalSince1970)",
             "type": "email",
             "room_type": "penthouse",

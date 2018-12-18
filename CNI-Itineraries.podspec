@@ -20,8 +20,9 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/conichiGMBH/CNI-Booking'
   s.license          = { :type => 'Conichi License', :file => 'LICENSE' }
   s.author           = { 'Joseph Tseng' => 'joseph.tseng@conichi.com' }
-  s.source           = { :git => 'https://github.com/conichiGMBH/CNI-Booking.git', :tag => s.version.to_s }
-
+  #s.source           = { :git => 'https://github.com/conichiGMBH/CNI-Booking.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/conichiGMBH/CNI-Booking.git', :branch => 'functional' }
+  
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'Source/Classes/**/*'
