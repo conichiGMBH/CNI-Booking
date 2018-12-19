@@ -53,7 +53,9 @@ platform :ios do
 
     #make_github_release(version: upcoming_version)
 
+    trunk_push
     podspec_push
+
   end
 
   ######################### PRIVATE LANES ##########################
@@ -76,9 +78,14 @@ platform :ios do
     [framework_name]
   end
 
+  desc "Push podspecs to trunk"
+  private_lane :trunk_push do
+  	pod_push(path: ENV['ITINERARIES_PODSPEC'], allow_warnings: true)
+  end
+
   desc "Push podspecs to conichi specs repo"
   private_lane :podspec_push do
-  	pod_push(path: ENV['ITINERARIES_PODSPEC'], repo: ENV['CONICHI_PODS_REPO_ORGANIZATION'], sources: [ENV['PRIVATE_CONICHI_PODS_SPECS'], ENV['COCOAPODS_MASTER_SPECS']], allow_warnings: true)
+    pod_push(path: ENV['ITINERARIES_PODSPEC'], repo: ENV['CONICHI_PODS_REPO_ORGANIZATION'], sources: [ENV['PRIVATE_CONICHI_PODS_SPECS'], ENV['COCOAPODS_MASTER_SPECS']], allow_warnings: true)
   end
 
   desc "Create or updaet github release with the given version"
