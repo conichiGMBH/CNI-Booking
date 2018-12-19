@@ -1,7 +1,8 @@
 ---
 upcoming:
-  version: 
-  notes: 
+  version: 1.0.13
+  notes:
+  - Fix fastlane Carthage release
 releases:
 - version: 1.0.12
   notes:
