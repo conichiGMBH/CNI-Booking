@@ -51,7 +51,7 @@ platform :ios do
       remote_branch: release_branch
     )
 
-    #make_github_release(version: upcoming_version)
+    make_github_release(version: upcoming_version)
 
     trunk_push
     podspec_push
@@ -64,12 +64,12 @@ platform :ios do
   private_lane :build_frameworks do
     framework_name = "#{ENV['ITINERARIES_FRAMEWORK']}.framework.zip"
 
-    cni_carthage(
+    carthage(
       no_skip_current: true,
       command: "build"
     )
 
-    cni_carthage(
+    carthage(
       frameworks: [ENV['ITINERARIES_FRAMEWORK']],
       output: framework_name,
       command: "archive"
