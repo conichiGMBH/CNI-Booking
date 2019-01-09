@@ -2,6 +2,7 @@
 upcoming:
   version: 1.0.13
   notes:
+  - Refactor request manager and add tests
   - Fix fastlane Carthage release
 releases:
 - version: 1.0.12

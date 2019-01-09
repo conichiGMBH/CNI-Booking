@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'CNI-Itineraries'
   s.version          = '1.0.12'
-  s.swift_version    = '3.2'
+  s.swift_version    = '4.2'
   s.summary          = 'provide methods to push, retrieve and delete bookings from conichi backend'
 
   s.description      = <<-DESC
