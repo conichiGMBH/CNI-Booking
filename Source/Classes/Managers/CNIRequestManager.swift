@@ -35,6 +35,28 @@ enum CNIHttpError: Error {
     }
 }
 
+enum HttpMethod: Equatable {
+    case get
+    case post([String: Any])
+    case delete([String: Any])
+    
+    // This is mainly for Nimble and testing
+    static func == (lhs: HttpMethod, rhs: HttpMethod) -> Bool {
+        switch (lhs, rhs) {
+        case (.get, .get): return true
+        case let (.post(l), .post(r)): return l.count == r.count
+        case let (.delete(l), .delete(r)): return l.count == r.count
+        case (.get, _),
+             (.post, _),
+             (.delete, _): return false
+        }
+    }
+}
+
+public typealias successClosure<T> = (_ results: T) -> Void
+public typealias failureClosure = (_ error: Error) -> Void
+
+
 class CNIRequestManager: NSObject {
     let urlSession: URLSession
     let networkConfiguration: CNINetworkConfiguration
@@ -56,114 +78,76 @@ class CNIRequestManager: NSObject {
         
     }
     
-    public func post(endpoint: String,
-                     data: [String: Any],
-                     success: @escaping (_ results: Data) -> Void,
-                     failure: @escaping (_ error: Error) -> Void) {
-        let url = networkConfiguration.baseURL + endpoint
-        
-        guard let postURL = URL(string: url) else {
-            return
+    public func request(endpoint: String, method: HttpMethod = .get) -> URLRequest? {
+        let urlString = networkConfiguration.baseURL + endpoint
+        guard let url = URL(string: urlString) else {
+            return nil
         }
-        var urlRequest = URLRequest(url: postURL)
-        do {
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-            urlRequest.httpMethod = "POST"
-            
-            let postData = try JSONSerialization.data(withJSONObject: data, options:.prettyPrinted)
-            urlRequest.httpBody = postData
-            
-            let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
-                if let error = error {
-                    failure(error)
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode < 300 {
-                        if let data = data {
-                            success(data)
-                        }
-                    } else if httpResponse.statusCode >= 300 {
-                        failure(CNIHttpError.fromError(code: httpResponse.statusCode))
-                    }
-                }
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        switch method {
+        case .get:
+            request.httpMethod = "GET"
+        case let .post(params), let .delete(params):
+            let postData: Data
+            if #available(iOS 11.0, *) {
+                postData = try! JSONSerialization.data(withJSONObject: params, options: .sortedKeys)
+            } else {
+                // Fallback on earlier versions
+                postData = try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             }
-            task.resume()
-            tasks.append(task)
-        } catch {
-            print("Error formatting json")
+            request.httpBody = postData
+            if case .post = method {
+                request.httpMethod = "POST"
+            } else {
+                request.httpMethod = "DELETE"
+            }
         }
+        return request
     }
     
-    public func delete(endpoint: String,
-                       data: [String: Any],
-                       success: @escaping (_ results: Data) -> Void,
-                       failure: @escaping (_ error: Error) -> Void) {
-        let url = networkConfiguration.baseURL + endpoint
-        
-        guard let deleteURL = URL(string: url) else {
-            return
-        }
-        var urlRequest = URLRequest(url: deleteURL)
-        do {
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-            urlRequest.httpMethod = "DELETE"
-            
-            let postData = try JSONSerialization.data(withJSONObject: data, options:.prettyPrinted)
-            urlRequest.httpBody = postData
-            
-            let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
-                if let error = error {
-                    failure(error)
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode < 300 {
-                        if let data = data {
-                            success(data)
-                        }
-                    } else if httpResponse.statusCode >= 300 {
-                        failure(CNIHttpError.fromError(code: httpResponse.statusCode))
-                    }
-                }
-            }
-            task.resume()
-            tasks.append(task)
-        } catch {
-            print("Error formatting json")
-        }
-    }
-    
-    public func get(endpoint: String,
-                    success: @escaping (_ results: Data) -> Void,
-                    failure: @escaping (_ error: Error) -> Void)
-    {
-        let url = networkConfiguration.baseURL + endpoint
-        
-        guard let getURL = URL(string: url) else {
-            return
-        }
-        var urlRequest = URLRequest(url: getURL)
-        urlRequest.httpMethod = "GET"
-        
-        let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
+    public func task(with urlRequest: URLRequest, urlSession: URLSession, success: @escaping successClosure<Data>, failure: @escaping failureClosure) {
+        let task = urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
             if let error = error {
                 failure(error)
                 return
             }
-            if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode < 300 {
-                    if let data = data {
-                        success(data)
-                    }
-                } else if httpResponse.statusCode >= 300 {
-                    failure(CNIHttpError.fromError(code: httpResponse.statusCode))
-                }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                assertionFailure("not a http response")
+                return
+            }
+            if httpResponse.statusCode < 300, let data = data {
+                success(data)
+            } else if let error = self?.errorStatusCodeHandler(httpResponse.statusCode) {
+                failure(error)
+            } else {
+                assertionFailure("error isn't generated")
+                return
             }
         }
         task.resume()
         tasks.append(task)
+    }
+    
+    public func requestAction(endpoint: String,
+                              method: HttpMethod,
+                              success: @escaping successClosure<Data>,
+                              failure: @escaping failureClosure) {
+        guard let request = request(endpoint: endpoint, method: method) else {
+            assertionFailure("request format error")
+            return
+        }
+        task(with: request, urlSession: self.urlSession, success: success, failure: failure)
+    }
+    
+    // MARK: - Helpers
+    
+    private func errorStatusCodeHandler(_ code: Int) -> Error {
+        if code >= 300 {
+            return CNIHttpError.fromError(code: code)
+        } else {
+            return CNIHttpError.unknownError
+        }
     }
 }

@@ -14,7 +14,7 @@ struct CNIBookingConstants {
 }
 
 public class CNIBookingManager: NSObject {
-    let requestManager: CNIRequestManager?
+    var requestManager: CNIRequestManager?
     
     public init(username: String!,
          password: String!,
@@ -26,43 +26,44 @@ public class CNIBookingManager: NSObject {
                                            environment: environment)
     }
     
-    public func getBookingsWith(success: @escaping (_ results: [CNIBooking]) -> Void,
-                                         failure: @escaping (_ error: Error) -> Void) {
+    public func getBookingsWith(success: @escaping successClosure<[CNIBooking]>,
+                                failure: @escaping failureClosure) {
         guard let requestManager = requestManager else {
             failure(CNIHttpError.unauthorized)
             return
         }
         
-        requestManager
-            .get(endpoint: CNIBookingConstants.bookingsEndpoint,
-                 success: { (data) in
-                    var itineraries = [CNIBooking]()
-                    let json = JSON(data)
-                    for (_, itineraryJSON) in json["bookings"] {
-                        let itinerary = CNIBooking()
-                        itinerary.map(json: itineraryJSON)
-                        itineraries.append(itinerary)
-                    }
-                    DispatchQueue.main.async {
-                        success(itineraries)
-                    }
-            }) { (error) in
+        requestManager.requestAction(endpoint: CNIBookingConstants.bookingsEndpoint,
+             method: .get,
+             success: { (data) in
+                var itineraries = [CNIBooking]()
+                let json = JSON(data)
+                for (_, itineraryJSON) in json["bookings"] {
+                    let itinerary = CNIBooking()
+                    itinerary.map(json: itineraryJSON)
+                    itineraries.append(itinerary)
+                }
+                DispatchQueue.main.async {
+                    success(itineraries)
+                }},
+             failure: { (error) in
                 DispatchQueue.main.async {
                     failure(error)
                 }
-        }
+            })
     }
     
     public func getBookingsFor(guestId: String,
-                                        success: @escaping (_ results: [CNIBooking]) -> Void,
-                                        failure: @escaping (_ error: Error) -> Void) {
+                               success: @escaping successClosure<[CNIBooking]>,
+                               failure: @escaping failureClosure) {
         guard let requestManager = requestManager else {
             failure(CNIHttpError.unauthorized)
             return
         }
         
         requestManager
-            .get(endpoint: CNIBookingConstants.bookingsForIdEndpoint + guestId,
+            .requestAction(endpoint: CNIBookingConstants.bookingsForIdEndpoint + guestId,
+                method: .get,
                  success: { (data) in
                     var itineraries = [CNIBooking]()
                     let json = JSON(data)
@@ -82,16 +83,16 @@ public class CNIBookingManager: NSObject {
     }
     
     public func postBookingWith(data: [String: Any],
-                                        success: @escaping (_ result: Bool) -> Void,
-                                        failure: @escaping (_ error: Error) -> Void) {
+                                success: @escaping successClosure<Bool>,
+                                failure: @escaping failureClosure) {
         guard let requestManager = requestManager else {
             failure(CNIHttpError.unauthorized)
             return
         }
         
         requestManager
-            .post(endpoint: CNIBookingConstants.bookingsEndpoint,
-                  data: data,
+            .requestAction(endpoint: CNIBookingConstants.bookingsEndpoint,
+                method: .post(data),
                   success: { (data) in
                     DispatchQueue.main.async {
                         success(true)
@@ -104,16 +105,16 @@ public class CNIBookingManager: NSObject {
     }
     
     public func deleteBookingWith(data: [String: Any],
-                                          success: @escaping (_ result: Bool) -> Void,
-                                          failure: @escaping (_ error: Error) -> Void) {
+                                  success: @escaping successClosure<Bool>,
+                                  failure: @escaping failureClosure) {
         guard let requestManager = requestManager else {
             failure(CNIHttpError.unauthorized)
             return
         }
         
         requestManager
-            .delete(endpoint: CNIBookingConstants.bookingsEndpoint,
-                    data: data,
+            .requestAction(endpoint: CNIBookingConstants.bookingsEndpoint,
+                   method: .delete(data),
                     success: { (data) in
                         DispatchQueue.main.async {
                             success(true)
