@@ -139,7 +139,7 @@ final class CNIBookingManagerTests: QuickSpec {
         }
         
         describe(".postBookingWith") {
-            it("uses bookings endpoint and GET method") {
+            it("uses bookings endpoint and POST method") {
                 subject.postBookingWith(data: ["test": "123"], success: { _ in }, failure: { _ in })
                 expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsEndpoint))
                 expect(requestManager.method).to(equal(HttpMethod.post(["test": "123"])))
@@ -168,7 +168,7 @@ final class CNIBookingManagerTests: QuickSpec {
         }
         
         describe(".deleteBookingWith") {
-            it("uses bookings endpoint and GET method") {
+            it("uses bookings endpoint and DELETE method") {
                 subject.deleteBookingWith(data: ["test": "123"], success: { _ in }, failure: { _ in })
                 expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsEndpoint))
                 expect(requestManager.method).to(equal(HttpMethod.delete(["test": "123"])))
