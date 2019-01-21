@@ -1,4 +1,4 @@
-DELETE https://staging.app.conichi.com/api/v3/itinerary/bookings
+DELETE https://app.staging.conichi.com/api/v3/itinerary/bookings
 Accept: application/json
 Content-Type: application/json
 
