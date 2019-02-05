@@ -11,6 +11,7 @@ import UIKit
 struct CNIBookingConstants {
     static let bookingsEndpoint = "itinerary/bookings"
     static let bookingsForIdEndpoint = "itinerary/bookings/id?value="
+    static let cancelBookingEndpoint = "itinerary/bookings/cancel"
 }
 
 public class CNIBookingManager: NSObject {
@@ -76,26 +77,32 @@ public class CNIBookingManager: NSObject {
                 }
         }
     }
-    
-    public func deleteBookingWith(data: [String: Any],
+
+    public func deleteBookingWith(guestId: String,
+                                  reservationNumber: String,
                                   success: @escaping successClosure<Bool>,
                                   failure: @escaping failureClosure) {
         guard let requestManager = requestManager else {
             failure(CNIHttpError.unauthorized)
             return
         }
-        
+
+        var data = [String: Any]()
+        data["guest"] = ["id": guestId]
+        data["stay"] = ["reservation_number": reservationNumber]
+
         requestManager
-            .requestAction(endpoint: CNIBookingConstants.bookingsEndpoint,
-                   method: .delete(data),
-                    success: { (data) in
-                        DispatchQueue.main.async {
-                            success(true)
-                        }
-            }) { (error) in
-                DispatchQueue.main.async {
-                    failure(error)
-                }
-        }
+            .requestAction(
+                endpoint: CNIBookingConstants.cancelBookingEndpoint,
+                method: .post(data),
+                success: { (data) in
+                    DispatchQueue.main.async {
+                        success(true)
+                    }},
+                failure: { (error) in
+                    DispatchQueue.main.async {
+                        failure(error)
+                    }}
+        )
     }
 }

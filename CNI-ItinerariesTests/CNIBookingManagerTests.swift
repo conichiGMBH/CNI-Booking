@@ -138,16 +138,20 @@ final class CNIBookingManagerTests: QuickSpec {
         }
         
         describe(".deleteBookingWith") {
-            it("uses bookings endpoint and DELETE method") {
-                subject.deleteBookingWith(data: ["test": "123"], success: { _ in }, failure: { _ in })
-                expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsEndpoint))
-                expect(requestManager.method).to(equal(HttpMethod.delete(["test": "123"])))
+            it("uses cancel booking endpoint and POST method") {
+                subject.deleteBookingWith(guestId: "123", reservationNumber: "456", success: { _ in }, failure: { _ in })
+                var expectedPayload = [String: Any]()
+                expectedPayload["guest"] = ["id": "123"]
+                expectedPayload["stay"] = ["reservation_number": "456"]
+
+                expect(requestManager.endpoint).to(equal(CNIBookingConstants.cancelBookingEndpoint))
+                expect(requestManager.method).to(equal(HttpMethod.post(expectedPayload)))
             }
             
             context("when request succeeds") {
                 it("returns true") {
                     var expectedResult: Bool!
-                    subject.deleteBookingWith(data: [:], success: { (result) in
+                    subject.deleteBookingWith(guestId: "123", reservationNumber: "456", success: { (result) in
                         expectedResult = result
                     }, failure: { _ in })
                     expect(expectedResult).toEventually(equal(true))
@@ -158,7 +162,7 @@ final class CNIBookingManagerTests: QuickSpec {
                 it("gives an error") {
                     var resultError: Error!
                     requestManager.isRequestSuccessful = false
-                    subject.deleteBookingWith(data: [:], success: { _ in }, failure: { (error) in
+                    subject.deleteBookingWith(guestId: "123", reservationNumber: "456", success: { _ in }, failure: { (error) in
                         resultError = error
                     })
                     expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
