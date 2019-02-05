@@ -40,7 +40,7 @@ class ViewController: UIViewController {
                                     result = "No booking for ID\n"
                                 } else {
                                     for itinerary in itineraries {
-                                        result += "\(itinerary.guest?.lastName ?? "") in \(itinerary.hotel?.name ?? "") (\(itinerary.stay?.reservationNumber ?? ""))\n"
+                                        result += "Reservation: (\(itinerary.stay?.reservationNumber ?? ""))\n"
                                     }
                                 }
                                 self.activityIndicator.isHidden = true
@@ -63,7 +63,7 @@ class ViewController: UIViewController {
             "stay": stay.deserialize()
             ], success: { (result) in
                 self.activityIndicator.isHidden = true
-                self.textView.text = "+ new booking Posted\n" + self.textView.text
+                self.textView.text = "+ new booking Posted: \(stay.reservationNumber ?? "")\n" + self.textView.text
         }) { (error) in
             self.activityIndicator.isHidden = true
             self.textView.text = "Error: \(error)" + self.textView.text + "\n"
@@ -76,24 +76,26 @@ class ViewController: UIViewController {
             self.textView.text = "Nothing to delete, post and get bookings before\n" + textView.text
         } else {
             activityIndicator.isHidden = false
-            var s = ""
             var i = 0
             for itinerary in bookingsForId {
-                s += "- \(itinerary.stay?.reservationNumber ?? "") deleted\n"
-                bookingManager?
-                    .deleteBookingWith(data: itinerary.deserialize(),
-                                       success: { (result) in
-                                        i += 1
-                                        if i >= self.bookingsForId.count {
-                                            self.activityIndicator.isHidden = true
-                                        }
+                guard let reservationNumber = itinerary.stay?.reservationNumber else {
+                    continue
+                }
+                bookingManager?.deleteBookingWith(
+                    guestId: "42424242",
+                    reservationNumber: reservationNumber,
+                    success: { (result) in
+                        i += 1
+                        if i >= self.bookingsForId.count {
+                            self.activityIndicator.isHidden = true
+                        }
+                        self.textView.text = "- \(reservationNumber) deleted\n" + self.textView.text
                     }, failure: { (error) in
                         self.activityIndicator.isHidden = true
-                        self.textView.text = "Error: \(error)" + self.textView.text + "\n"
+                        self.textView.text = "Error: \(error)\n" + self.textView.text
                     })
             }
             self.bookingsForId = [CNIBooking]()
-            self.textView.text = s + self.textView.text + "\n"
         }
     }
 }
