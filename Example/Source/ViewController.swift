@@ -26,23 +26,7 @@ class ViewController: UIViewController {
                                            consumerKey: "",
                                            environment: "")
     }
-    
-    @IBAction func getButtonAction(_ sender: Any) {
-        textView.text = "\n" + textView.text
-        activityIndicator.isHidden = false
-        bookingManager?.getBookingsWith(success: { (itineraries) in
-            var result = ""
-            for itinerary in itineraries {
-                result = result + "\(itinerary.guest?.lastName ?? "") in \(itinerary.hotel?.name ?? "") (\(itinerary.stay?.reservationNumber ?? ""))\n"
-            }
-            self.activityIndicator.isHidden = true
-            self.textView.text = result + self.textView.text
-        }) { (error) in
-            self.activityIndicator.isHidden = true
-            self.textView.text = "Error: \(error)" + self.textView.text + "\n"
-        }
-    }
-    
+
     @IBAction func getForIDButtonAction(_ sender: Any) {
         activityIndicator.isHidden = false
         textView.text = "\n" + textView.text
