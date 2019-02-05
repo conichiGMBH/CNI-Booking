@@ -78,36 +78,6 @@ final class CNIBookingManagerTests: QuickSpec {
             subject.requestManager = requestManager
         }
         
-        describe(".getBookingsWith") {
-            it("uses bookings endpoint and GET method") {
-                subject.getBookingsWith(success: { _ in }, failure: { _ in })
-                expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsEndpoint))
-                expect(requestManager.method).to(equal(HttpMethod.get))
-            }
-            
-            context("when request succeeds") {
-                it("returns correct booking data") {
-                    var resultBookings: [CNIBooking]!
-                    subject.getBookingsWith(success: { (bookings) in
-                        resultBookings = bookings
-                    }, failure: { _ in })
-                    expect(resultBookings.first!.guest!.guestId!).toEventually(equal("42424242"))
-                    expect(resultBookings.first!.hotel!.name!).toEventually(equal("conichi"))
-                }
-            }
-            
-            context("when request fails") {
-                it("gives an error") {
-                    var resultError: Error!
-                    requestManager.isRequestSuccessful = false
-                    subject.getBookingsWith(success: { _ in }, failure: { (error) in
-                        resultError = error
-                    })
-                    expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
-                }
-            }
-        }
-        
         describe(".getBookingsFor") {
             it("uses bookingsForID endpoint and GET method") {
                 subject.getBookingsFor(guestId: "123", success: { _ in }, failure: { _ in })
@@ -130,7 +100,7 @@ final class CNIBookingManagerTests: QuickSpec {
                 it("gives an error") {
                     var resultError: Error!
                     requestManager.isRequestSuccessful = false
-                    subject.getBookingsWith(success: { _ in }, failure: { (error) in
+                    subject.getBookingsFor(guestId: "123", success: { _ in }, failure: { (error) in
                         resultError = error
                     })
                     expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
@@ -159,7 +129,7 @@ final class CNIBookingManagerTests: QuickSpec {
                 it("gives an error") {
                     var resultError: Error!
                     requestManager.isRequestSuccessful = false
-                    subject.getBookingsWith(success: { _ in }, failure: { (error) in
+                    subject.postBookingWith(data: [:], success: { _ in }, failure: { (error) in
                         resultError = error
                     })
                     expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
@@ -188,7 +158,7 @@ final class CNIBookingManagerTests: QuickSpec {
                 it("gives an error") {
                     var resultError: Error!
                     requestManager.isRequestSuccessful = false
-                    subject.getBookingsWith(success: { _ in }, failure: { (error) in
+                    subject.deleteBookingWith(data: [:], success: { _ in }, failure: { (error) in
                         resultError = error
                     })
                     expect(resultError).toEventually(matchError(CNIHttpError.unknownError))

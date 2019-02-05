@@ -26,33 +26,6 @@ public class CNIBookingManager: NSObject {
                                            environment: environment)
     }
     
-    public func getBookingsWith(success: @escaping successClosure<[CNIBooking]>,
-                                failure: @escaping failureClosure) {
-        guard let requestManager = requestManager else {
-            failure(CNIHttpError.unauthorized)
-            return
-        }
-        
-        requestManager.requestAction(endpoint: CNIBookingConstants.bookingsEndpoint,
-             method: .get,
-             success: { (data) in
-                var itineraries = [CNIBooking]()
-                let json = JSON(data)
-                for (_, itineraryJSON) in json["bookings"] {
-                    let itinerary = CNIBooking()
-                    itinerary.map(json: itineraryJSON)
-                    itineraries.append(itinerary)
-                }
-                DispatchQueue.main.async {
-                    success(itineraries)
-                }},
-             failure: { (error) in
-                DispatchQueue.main.async {
-                    failure(error)
-                }
-            })
-    }
-    
     public func getBookingsFor(guestId: String,
                                success: @escaping successClosure<[CNIBooking]>,
                                failure: @escaping failureClosure) {
