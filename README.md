@@ -1,4 +1,4 @@
-# CNI-Itineraries 
+# CNI-Itineraries
 
 [![Version](https://img.shields.io/cocoapods/v/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries )
 [![License](https://img.shields.io/cocoapods/l/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries )
@@ -22,10 +22,7 @@ pod 'CNI-Itineraries'
 
 * `import CNI_Itineraries`
 * Use those `CNIBookingManager` methods
-```swift
-public class func getBookingsWith(success: @escaping (_ results: [CNIBooking]) -> Void,
-failure: @escaping (_ error: Error) -> Void)
-```
+
 ```swift
 public class func getBookingsFor(guestId: String,
 success: @escaping (_ results: [CNIBooking]) -> Void,
@@ -37,7 +34,9 @@ success: @escaping (_ result: Bool) -> Void,
 failure: @escaping (_ error: Error) -> Void)
 ```
 ```swift
-public class func deleteBookingWith(data: [String: Any],
+public class func deleteBookingWith(
+guestId: String,
+reservationNumber: String,
 success: @escaping (_ result: Bool) -> Void,
 failure: @escaping (_ error: Error) -> Void)
 ```
