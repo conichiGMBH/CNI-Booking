@@ -62,10 +62,17 @@ final class CNIRequestManagerTests: QuickSpec {
             }
             
             context("when response isn't a HTTPURLResponse") {
-                it("throws assertion") {
+                it("returns and doesn't call callbacks") {
+                    var successCalled = false
+                    var failureCalled = false
                     mockURLSession.response = URLResponse(url: URL(string: "url")!, mimeType: "application/json", expectedContentLength: 10, textEncodingName: nil)
-                    expect(self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { _ in }, failure: { _ in }))
-                    .to(throwAssertion())
+                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { _ in
+                        successCalled = true
+                    }, failure: { _ in
+                        failureCalled = true
+                    })
+                    expect(successCalled).to(beFalse())
+                    expect(failureCalled).to(beFalse())
                 }
             }
             

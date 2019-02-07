@@ -108,22 +108,20 @@ class CNIRequestManager: NSObject {
     }
     
     public func task(with urlRequest: URLRequest, urlSession: URLSession, success: @escaping successClosure<Data>, failure: @escaping failureClosure) {
-        let task = urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+        let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
             if let error = error {
                 failure(error)
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse else {
-                assertionFailure("not a http response")
+                debugPrint("response is not a http response")
                 return
             }
             if httpResponse.statusCode < 300, let data = data {
                 success(data)
-            } else if let error = self?.errorStatusCodeHandler(httpResponse.statusCode) {
-                failure(error)
             } else {
-                assertionFailure("error isn't generated")
-                return
+                let error = CNIRequestManager.errorStatusCodeHandler(httpResponse.statusCode)
+                failure(error)
             }
         }
         task.resume()
@@ -143,7 +141,7 @@ class CNIRequestManager: NSObject {
     
     // MARK: - Helpers
     
-    private func errorStatusCodeHandler(_ code: Int) -> Error {
+    private static func errorStatusCodeHandler(_ code: Int) -> Error {
         if code >= 300 {
             return CNIHttpError.fromError(code: code)
         } else {
