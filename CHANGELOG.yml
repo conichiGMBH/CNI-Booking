@@ -1,9 +1,11 @@
 ---
 upcoming:
-  version: 1.1.1
+  version: 
+  notes: 
+releases:
+- version: 1.1.1
   notes:
   - Remove undesirable assertionFailures from request manager
-releases:
 - version: 1.1.0
   notes:
   - Remove get all bookings endpoint
@@ -19,8 +21,8 @@ releases:
   - Add setup files
   - Restructure project workspace
 - version: 1.0.11
-  notes:
+  notes: 
 - version: 1.0.0
-  notes:
+  notes: 
 - version: 0.0.0
-  notes:
+  notes: 
