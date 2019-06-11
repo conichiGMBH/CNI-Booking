@@ -1,7 +1,8 @@
 ---
 upcoming:
-  version: 
-  notes: 
+  version: 1.1.2
+  notes:
+  - Introduce X-Protocol-Version http header
 releases:
 - version: 1.1.1
   notes:
@@ -21,8 +22,8 @@ releases:
   - Add setup files
   - Restructure project workspace
 - version: 1.0.11
-  notes: 
+  notes:
 - version: 1.0.0
-  notes: 
+  notes:
 - version: 0.0.0
-  notes: 
+  notes:

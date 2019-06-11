@@ -72,7 +72,8 @@ class CNIRequestManager: NSObject {
                                                        consumerKey: consumerKey,
                                                        environment: environment)
         config.httpAdditionalHeaders = ["Authorization" : networkConfiguration.authString,
-                                        "X-Consumer-Key": networkConfiguration.consumerKey]
+                                        "X-Consumer-Key": networkConfiguration.consumerKey,
+                                        "X-Protocol-Version": networkConfiguration.protocolVersion()]
         urlSession = URLSession(configuration: config)
         super.init()
         
