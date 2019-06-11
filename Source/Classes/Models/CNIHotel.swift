@@ -9,12 +9,16 @@
 import UIKit
 
 public class CNIHotel: CNIObject, CNIModelDelegate {
+    public var id: String?
+    public var secondaryId: String?
     public var name: String?
     public var email: String?
     public var address: CNIAddress?
     public var phones: [String]?
     
     public func map(json: JSON) {
+        id = json["id"].string
+        secondaryId = json["secondary_id"].string
         name = json["name"].string
         email = json["email"].string
         address = CNIAddress()
@@ -29,7 +33,9 @@ public class CNIHotel: CNIObject, CNIModelDelegate {
 
     public func deserialize() -> [String: Any] {
         var dict = [String: Any]()
-        
+
+        dict["id"] = id
+        dict["secondary_id"] = secondaryId
         dict["name"] = name
         dict["email"] = email
         dict["address"] = address?.deserialize()

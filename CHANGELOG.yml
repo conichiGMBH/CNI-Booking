@@ -3,6 +3,7 @@ upcoming:
   version: 1.1.2
   notes:
   - Introduce X-Protocol-Version http header
+  - Introduce hotel id and secondary_id fields
 releases:
 - version: 1.1.1
   notes:

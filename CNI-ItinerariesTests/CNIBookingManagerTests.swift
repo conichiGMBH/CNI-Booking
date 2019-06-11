@@ -26,6 +26,8 @@ class MockRequestManager: CNIRequestManager {
                 "first_name": "Joseph"
             },
             "hotel": {
+                "id": "EU-666-13",
+                "secondary_id": "537026",
                 "phones": [
                 "013333333333"],
                 "email": "conichi@conichi.com",
