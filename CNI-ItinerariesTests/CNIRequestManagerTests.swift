@@ -42,6 +42,13 @@ final class CNIRequestManagerTests: QuickSpec {
     let subject = CNIRequestManager(username: "test-user", password: "test", consumerKey: "test-key", environment: "Staging")
     
     override func spec() {
+        describe(".init") {
+            it("sets X-Protocol-Version in headers") {
+                let protocolVersion = self.subject.urlSession.configuration.httpAdditionalHeaders?["X-Protocol-Version"] as? String
+                expect(protocolVersion).to(equal(CNINetworkConfiguration.protocolVersion))
+            }
+        }
+
         describe(".task") {
             var mockURLSession: MockURLSession!
             

@@ -22,6 +22,7 @@ struct CNINetworkConstants {
 }
 
 class CNINetworkConfiguration: NSObject {
+    static let protocolVersion: String = "2"
     var username: String
     var password: String
     var consumerKey: String
@@ -59,5 +60,9 @@ class CNINetworkConfiguration: NSObject {
         }
 
         super.init()
+    }
+
+    func protocolVersion() -> String {
+        return CNINetworkConfiguration.protocolVersion
     }
 }

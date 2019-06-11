@@ -6,12 +6,12 @@ target 'CNI-Itineraries' do
   use_frameworks!
 
   # Pods for CNI-Itineraries
-  
+
   target 'CNI-ItinerariesTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'SnapshotTesting', '~> 1.0'
-    pod 'Nimble', '~> 7.3'
+    pod 'Nimble', '~> 8.0'
     pod 'Quick', '~> 1.3'
   end
 
