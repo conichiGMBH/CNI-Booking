@@ -9,100 +9,65 @@
 import UIKit
 
 struct CNIBookingConstants {
-    static let bookingsEndpoint = "itinerary/bookings"
-    static let bookingsForIdEndpoint = "itinerary/bookings/id?value="
-    static let cancelBookingEndpoint = "itinerary/bookings/cancel"
+    static let bookingEndpoint = "booking"
+    static let cancelBookingEndpoint = "booking/cancel"
 }
 
 public class CNIBookingManager: NSObject {
     var requestManager: CNIRequestManager?
     
-    public init(username: String!,
-         password: String!,
-         consumerKey: String!,
-         environment: String!) {
-        requestManager = CNIRequestManager(username: username,
-                                           password: password,
-                                           consumerKey: consumerKey,
-                                           environment: environment)
+    public init(environment: CNIEnvironment,
+                apiToken: String,
+                isTesting: Bool) {
+        requestManager = CNIRequestManager(environment: environment,
+                                           token: apiToken,
+                                           isTesting: isTesting)
     }
     
-    public func getBookingsFor(guestId: String,
-                               success: @escaping successClosure<[CNIBooking]>,
-                               failure: @escaping failureClosure) {
+    public func postBooking(source: String,
+                            booking: CNIBooking,
+                            completion: @escaping completionClosure<CNIStatus>) {
         guard let requestManager = requestManager else {
-            failure(CNIHttpError.unauthorized)
+            completion(CNIResponse(result: nil, error: CNIHttpError.unauthorized, isSuccessful: false))
             return
         }
-        
+        let data = booking.deserialize()
         requestManager
-            .requestAction(endpoint: CNIBookingConstants.bookingsForIdEndpoint + guestId,
-                method: .get,
-                 success: { (data) in
-                    var itineraries = [CNIBooking]()
-                    let json = JSON(data)
-                    for (_, itineraryJSON) in json["bookings"] {
-                        let itinerary = CNIBooking()
-                        itinerary.map(json: itineraryJSON)
-                        itineraries.append(itinerary)
-                    }
-                    DispatchQueue.main.async {
-                        success(itineraries)
-                    }
-            }) { (error) in
-                DispatchQueue.main.async {
-                    failure(error)
-                }
-        }
-    }
-    
-    public func postBookingWith(data: [String: Any],
-                                success: @escaping successClosure<Bool>,
-                                failure: @escaping failureClosure) {
-        guard let requestManager = requestManager else {
-            failure(CNIHttpError.unauthorized)
-            return
-        }
-        
-        requestManager
-            .requestAction(endpoint: CNIBookingConstants.bookingsEndpoint,
+            .requestAction(endpoint: CNIBookingConstants.bookingEndpoint,
                 method: .post(data),
-                  success: { (data) in
+                source: source) { (response: CNIResponse<Data>) in
+                    let status = CNIStatus(data: response.result)
                     DispatchQueue.main.async {
-                        success(true)
+                        completion(CNIResponse(result: status, error: response.error, isSuccessful: response.isSuccessful))
                     }
-            }) { (error) in
-                DispatchQueue.main.async {
-                    failure(error)
-                }
         }
     }
 
-    public func deleteBookingWith(guestId: String,
-                                  reservationNumber: String,
-                                  success: @escaping successClosure<Bool>,
-                                  failure: @escaping failureClosure) {
+    public func cancelBooking(source: String,
+                              travelerId: String,
+                              reservationNumber: String,
+                              partnerPrimaryId: String,
+                              partnerSecondaryIds: [String]?,
+                              completion: @escaping completionClosure<CNIStatus>) {
         guard let requestManager = requestManager else {
-            failure(CNIHttpError.unauthorized)
+            completion(CNIResponse(result: nil, error: CNIHttpError.unauthorized, isSuccessful: false))
             return
         }
 
-        var data = [String: Any]()
-        data["guest"] = ["id": guestId]
-        data["stay"] = ["reservation_number": reservationNumber]
+        let traveler = CNITraveler(id: travelerId)
+        let reservation = CNIReservation(reservationNumber: reservationNumber)
+        let partner = CNIPartner(primaryId: partnerPrimaryId, secondaryIds: partnerSecondaryIds)
+        let booking = CNIBooking(traveler: traveler, reservation: reservation, hotel: nil, payment: nil, partner: partner)
+        let data = booking.deserialize()
 
-        requestManager
-            .requestAction(
+        requestManager.requestAction(
                 endpoint: CNIBookingConstants.cancelBookingEndpoint,
                 method: .post(data),
-                success: { (data) in
+                source: source) { (response: CNIResponse<Data>) in
+                    let status = CNIStatus(data: response.result)
                     DispatchQueue.main.async {
-                        success(true)
-                    }},
-                failure: { (error) in
-                    DispatchQueue.main.async {
-                        failure(error)
-                    }}
-        )
+                        completion(CNIResponse(result: status, error: response.error, isSuccessful: response.isSuccessful))
+                    }
+        }
     }
 }

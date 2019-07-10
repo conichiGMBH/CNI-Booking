@@ -6,6 +6,6 @@ target 'CNI-Itineraries Example' do
   target 'CNI-Itineraries Example_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end

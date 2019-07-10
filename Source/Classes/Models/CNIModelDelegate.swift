@@ -9,6 +9,5 @@
 import Foundation
 
 public protocol CNIModelDelegate {
-    func map(json: JSON)
     func deserialize() -> [String: Any]
 }

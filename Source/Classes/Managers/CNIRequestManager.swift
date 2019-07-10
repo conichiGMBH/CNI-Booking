@@ -21,7 +21,7 @@ enum CNIHttpError: Error {
         case 400:
             return CNIHttpError.badRequest
         case 401:
-            print("Are you sure you added the following keys to your info.plist: CNICONFIGURATIONUSERNAME, CNICONFIGURATIONPASSWORD, CNICONFIGURATIONCONSUMERKEY, CNICONFIGURATIONENVIRONMENT, check the README on github")
+            print("Are you sure you provided the apiToken?")
             return CNIHttpError.unauthorized
         case 403:
             return CNIHttpError.forbidden
@@ -39,7 +39,17 @@ enum HttpMethod: Equatable {
     case get
     case post([String: Any])
     case delete([String: Any])
-    
+
+    func httpMethodString() -> String {
+        switch self {
+        case .get:
+            return "GET"
+        case .delete(_):
+            return "DELETE"
+        case .post(_):
+            return "POST"
+        }
+    }
     // This is mainly for Nimble and testing
     static func == (lhs: HttpMethod, rhs: HttpMethod) -> Bool {
         switch (lhs, rhs) {
@@ -53,33 +63,28 @@ enum HttpMethod: Equatable {
     }
 }
 
-public typealias successClosure<T> = (_ results: T) -> Void
-public typealias failureClosure = (_ error: Error) -> Void
-
+public typealias completionClosure<T> = (_ response: CNIResponse<T>) -> Void
 
 class CNIRequestManager: NSObject {
     let urlSession: URLSession
     let networkConfiguration: CNINetworkConfiguration
     var tasks = [Any]()
     
-    init(username: String!,
-         password: String!,
-         consumerKey: String!,
-         environment: String!) {
+    init(environment: CNIEnvironment,
+         token: String,
+         isTesting: Bool) {
         let config = URLSessionConfiguration.default
-        networkConfiguration = CNINetworkConfiguration(username: username,
-                                                       password: password,
-                                                       consumerKey: consumerKey,
+        networkConfiguration = CNINetworkConfiguration(token: token,
                                                        environment: environment)
-        config.httpAdditionalHeaders = ["Authorization" : networkConfiguration.authString,
-                                        "X-Consumer-Key": networkConfiguration.consumerKey,
-                                        "X-Protocol-Version": networkConfiguration.protocolVersion()]
+        config.httpAdditionalHeaders = ["X-Authorization" : networkConfiguration.token,
+                                        "X-Protocol-Version": networkConfiguration.protocolVersion(),
+                                        "X-Test": isTesting]
         urlSession = URLSession(configuration: config)
         super.init()
         
     }
     
-    public func request(endpoint: String, method: HttpMethod = .get) -> URLRequest? {
+    func request(endpoint: String, method: HttpMethod = .get, source: String) -> URLRequest? {
         let urlString = networkConfiguration.baseURL + endpoint
         guard let url = URL(string: urlString) else {
             return nil
@@ -87,9 +92,9 @@ class CNIRequestManager: NSObject {
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue(source, forHTTPHeaderField: "X-Source")
+        request.httpMethod = method.httpMethodString()
         switch method {
-        case .get:
-            request.httpMethod = "GET"
         case let .post(params), let .delete(params):
             let postData: Data
             if #available(iOS 11.0, *) {
@@ -99,19 +104,16 @@ class CNIRequestManager: NSObject {
                 postData = try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             }
             request.httpBody = postData
-            if case .post = method {
-                request.httpMethod = "POST"
-            } else {
-                request.httpMethod = "DELETE"
-            }
+        default:
+            break
         }
         return request
     }
     
-    public func task(with urlRequest: URLRequest, urlSession: URLSession, success: @escaping successClosure<Data>, failure: @escaping failureClosure) {
+    func task(with urlRequest: URLRequest, urlSession: URLSession, completion: @escaping completionClosure<Data>) {
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
             if let error = error {
-                failure(error)
+                completion(CNIResponse(result: nil, error: error, isSuccessful: false))
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse else {
@@ -119,25 +121,25 @@ class CNIRequestManager: NSObject {
                 return
             }
             if httpResponse.statusCode < 300, let data = data {
-                success(data)
+                completion(CNIResponse(result: data, error: nil, isSuccessful: true))
             } else {
                 let error = CNIRequestManager.errorStatusCodeHandler(httpResponse.statusCode)
-                failure(error)
+                completion(CNIResponse(result: data, error: error, isSuccessful: false))
             }
         }
         task.resume()
         tasks.append(task)
     }
     
-    public func requestAction(endpoint: String,
+    func requestAction(endpoint: String,
                               method: HttpMethod,
-                              success: @escaping successClosure<Data>,
-                              failure: @escaping failureClosure) {
-        guard let request = request(endpoint: endpoint, method: method) else {
+                              source: String,
+                              completion: @escaping completionClosure<Data>) {
+        guard let request = request(endpoint: endpoint, method: method, source: source) else {
             assertionFailure("request format error")
             return
         }
-        task(with: request, urlSession: self.urlSession, success: success, failure: failure)
+        task(with: request, urlSession: self.urlSession, completion: completion)
     }
     
     // MARK: - Helpers

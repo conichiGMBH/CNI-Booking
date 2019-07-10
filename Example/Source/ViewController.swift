@@ -14,143 +14,121 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var bookingManager: CNIBookingManager?
-    var bookingsForId = [CNIBooking]()
-    
+    let source = ""
+    let token = ""
+
+    var lastCreatedReservationNumber: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.isHidden = true
         activityIndicator.startAnimating()
         
-        bookingManager = CNIBookingManager(username: "",
-                                           password: "",
-                                           consumerKey: "",
-                                           environment: "")
-    }
-
-    @IBAction func getForIDButtonAction(_ sender: Any) {
-        activityIndicator.isHidden = false
-        textView.text = "\n" + textView.text
-        bookingsForId = [CNIBooking]()
-        bookingManager?
-            .getBookingsFor(guestId: "42424242",
-                            success: { (itineraries) in
-                                var result = ""
-                                self.bookingsForId = itineraries
-                                if itineraries.count == 0 {
-                                    result = "No booking for ID\n"
-                                } else {
-                                    for itinerary in itineraries {
-                                        result += "Reservation: (\(itinerary.stay?.reservationNumber ?? ""))\n"
-                                    }
-                                }
-                                self.activityIndicator.isHidden = true
-                                self.textView.text = result + self.textView.text
-            }) { (error) in
-                self.activityIndicator.isHidden = true
-                self.textView.text = "Error: \(error)" + self.textView.text + "\n"
-        }
+        bookingManager = CNIBookingManager(environment: .staging, apiToken: token, isTesting: true)
     }
     
     @IBAction func postButtonAction(_ sender: Any) {
         activityIndicator.isHidden = false
         textView.text = "\n" + textView.text
-        let guest = aGuest()
-        let hotel = aHotel()
-        let stay = aStay()
-        bookingManager?.postBookingWith(data: [
-            "guest": guest.deserialize(),
-            "hotel": hotel.deserialize(),
-            "stay": stay.deserialize()
-            ], success: { (result) in
-                self.activityIndicator.isHidden = true
-                self.textView.text = "+ new booking Posted: \(stay.reservationNumber ?? "")\n" + self.textView.text
-        }) { (error) in
+
+        let booking = CNIBooking(
+            traveler: aTraveler(),
+            reservation: aReservation(),
+            hotel: aHotel(),
+            payment: nil,
+            partner: aPartner())
+        bookingManager?.postBooking(source: source, booking: booking) { (response: CNIResponse<CNIStatus>) in
             self.activityIndicator.isHidden = true
-            self.textView.text = "Error: \(error)" + self.textView.text + "\n"
+
+            if response.isSuccessful, let status = response.result {
+                self.lastCreatedReservationNumber = booking.reservation?.reservationNumber
+                self.textView.text = "+ new booking posted: \(status.message!) - reservationNumber: \(self.lastCreatedReservationNumber!)"
+            } else if !response.isSuccessful, let status = response.result {
+                self.textView.text = "- status:\(status.status!) code:\(status.code!) - reason: \(status.reason!)"
+            }
         }
     }
     
-    @IBAction func deleteButtonAction(_ sender: Any) {
+    @IBAction func cancelButtonAction(_ sender: Any) {
+        activityIndicator.isHidden = false
         textView.text = "\n" + textView.text
-        if bookingsForId.count == 0 {
-            self.textView.text = "Nothing to delete, post and get bookings before\n" + textView.text
-        } else {
-            activityIndicator.isHidden = false
-            var i = 0
-            for itinerary in bookingsForId {
-                guard let reservationNumber = itinerary.stay?.reservationNumber else {
-                    continue
+
+        guard let reservationNumber = self.lastCreatedReservationNumber else {
+            assertionFailure()
+            return
+        }
+
+        bookingManager?.cancelBooking(
+            source: source,
+            travelerId: aTraveler().id!,
+            reservationNumber: reservationNumber,
+            partnerPrimaryId: aPartner().primaryId!,
+            partnerSecondaryIds: nil) { (response: CNIResponse<CNIStatus>) in
+                self.activityIndicator.isHidden = true
+                if response.isSuccessful, let status = response.result {
+                    self.textView.text = "- booking canceled: \(status.message!)"
+                } else if !response.isSuccessful, let status = response.result {
+                    self.textView.text = "- cancel request:\ntravelerId: \(self.aTraveler().id!) - reservationNumber: \(reservationNumber) - partnerId: \(self.aPartner().primaryId!)"
+                    self.textView.text += "\n- status:\(status.status!) code:\(status.code!) reason: \(status.reason!)"
                 }
-                bookingManager?.deleteBookingWith(
-                    guestId: "42424242",
-                    reservationNumber: reservationNumber,
-                    success: { (result) in
-                        i += 1
-                        if i >= self.bookingsForId.count {
-                            self.activityIndicator.isHidden = true
-                        }
-                        self.textView.text = "- \(reservationNumber) deleted\n" + self.textView.text
-                    }, failure: { (error) in
-                        self.activityIndicator.isHidden = true
-                        self.textView.text = "Error: \(error)\n" + self.textView.text
-                    })
-            }
-            self.bookingsForId = [CNIBooking]()
         }
     }
 }
 
 extension ViewController {
-    func aGuest() -> CNIGuest {
-        let guest = CNIGuest()
-        guest.map(json: [
-            "id": "42424242",
-            "first_name": "Vincent",
-            "last_name": "Jacquesson",
-            "email": "vincent.jacquesson@conichi.com",
-            "phone": "013333333333"
-            ])
-        return guest
+    func aTraveler() -> CNITraveler {
+        let traveler = CNITraveler(
+            id: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            languageCode: nil,
+            nationalityCode: nil,
+            salutation: nil,
+            address: nil,
+            billingAddress: nil)
+        return traveler
     }
     
     func aHotel() -> CNIHotel {
-        let hotel = CNIHotel()
-        hotel.map(json: [
-            "name": "conichi",
-            "email": "conichi@conichi.com",
-            "address": [
-                "street_name": "Ohlauer Str. 43",
-                "city_name": "Berlin",
-                "zip": "10999"
-            ],
-            "phones": [
-                "013333333333"
-            ]
-            ])
+        let address = CNIAddress(
+            street: "",
+            city: "",
+            zip: "",
+            state: nil,
+            country: "")
+
+        let hotel = CNIHotel(
+            id: "",
+            secondaryId: nil,
+            name: "",
+            email: "",
+            address: address,
+            phones: [""])
+
         return hotel
     }
     
-    func aStay() -> CNIStay {
-        let stay = CNIStay()
-        stay.map(json: [
-            "arrival_date": "2018-06-26",
-            "departure_date": "2018-06-27",
-            "reservation_number": "\(Date().timeIntervalSince1970)",
-            "type": "email",
-            "room_type": "penthouse",
-            "room_rate": "42",
-            "services": [
-                [
-                    "description": "pool",
-                    "amount": 42.0,
-                    "currency": "€"
-                ],[
-                    "description": "netflix",
-                    "amount": 3.0,
-                    "currency": "€"
-                ]
-            ]
-            ])
+    func aReservation() -> CNIReservation {
+        let today = Date()
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)
+        let stay = CNIReservation(
+            arrivalDate: today,
+            departureDate: tomorrow,
+            reservationNumber: "\(Date().timeIntervalSince1970)",
+            reservationState: .booked,
+            reservationType: nil,
+            numberOfGuests: nil,
+            roomType: nil,
+            roomRate: nil,
+            services: nil)
+
         return stay
+    }
+
+    func aPartner() -> CNIPartner {
+        let partner = CNIPartner(primaryId: "", secondaryIds: nil)
+        return partner
     }
 }

@@ -8,55 +8,34 @@
 
 import UIKit
 
-enum CNIEnvironment {
+public enum CNIEnvironment {
     case dev
     case staging
     case production
-    case unknowEnvironment
 }
 
-struct CNINetworkConstants {
-    static let devBaseURL = "https://app.dev.conichi.com/api/v3/"
-    static let stagingBaseURL = "https://app.staging.conichi.com/api/v3/"
-    static let productionBaseURL = "https://app.conichi.com/api/v3/"
+fileprivate struct CNINetworkConstants {
+    static let devBaseURL = "https://transformer.dev.conichi.com/api/2/"
+    static let stagingBaseURL = "https://transformer.staging.conichi.com/api/2/"
+    static let productionBaseURL = "https://transformer.conichi.com/api/2/"
 }
 
 class CNINetworkConfiguration: NSObject {
-    static let protocolVersion: String = "2"
-    var username: String
-    var password: String
-    var consumerKey: String
-    var environment: CNIEnvironment
+    static let protocolVersion: String = "1"
+    var token: String
     var baseURL: String
-    var authString: String
 
-    init(username: String,
-         password: String,
-         consumerKey: String,
-         environment: String) {
-        self.username = username
-        self.password = password
-        self.consumerKey = consumerKey
-        let userPasswordString = username + ":" + password
-        authString = ""
-        if let userPasswordData = userPasswordString.data(using: String.Encoding.utf8) {
-            let base64EncodedCredential = userPasswordData.base64EncodedString()
-            authString = "Basic \(base64EncodedCredential)"
-        }
+    init(token: String,
+         environment: CNIEnvironment) {
 
-        switch environment.lowercased().prefix(3) {
-        case "dev":
-            self.environment = .dev
+        self.token = token
+        switch environment {
+        case .dev:
             baseURL = CNINetworkConstants.devBaseURL
-        case "sta":
-            self.environment = .staging
+        case .staging:
             baseURL = CNINetworkConstants.stagingBaseURL
-        case "pro":
-            self.environment = .production
+        case .production:
             baseURL = CNINetworkConstants.productionBaseURL
-        default:
-            self.environment = .unknowEnvironment
-            baseURL = CNINetworkConstants.devBaseURL
         }
 
         super.init()

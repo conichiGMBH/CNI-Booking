@@ -10,26 +10,22 @@ import UIKit
 
 public class CNIObject: NSObject {
     let parseDateFormatter = DateFormatter()
-    
-    public override init() {
-        super.init()
+
+    public func dateString(from date: Date?) -> String? {
         parseDateFormatter.dateFormat = "yyyy-MM-dd"
-    }
-    
-    public func parse(dateString: String?) -> Date! {
-        guard let dateString = dateString else {
-            return Date()
-        }
 
-        if let parsedDate = parseDateFormatter.date(from: dateString) {
-            return parsedDate
-        }
-        return Date()
-    }
-
-    public func display(date: Date?) -> String! {
         guard let date = date else {
-            return parseDateFormatter.string(from: Date())
+            return nil
+        }
+
+        return parseDateFormatter.string(from: date)
+    }
+
+    public func dateAndTimeString(from date: Date?) -> String? {
+        parseDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S"
+
+        guard let date = date else {
+            return nil
         }
 
         return parseDateFormatter.string(from: date)

@@ -9,26 +9,28 @@
 import UIKit
 
 public class CNIBooking: CNIObject, CNIModelDelegate {
-    public var stay: CNIStay?
-    public var hotel: CNIHotel?
-    public var guest: CNIGuest?
-    
-    public func map(json: JSON) {
-        stay = CNIStay()
-        hotel = CNIHotel()
-        guest = CNIGuest()
-        
-        stay?.map(json: json["stay"])
-        hotel?.map(json: json["hotel"])
-        guest?.map(json: json["guest"])
+    public let traveler: CNITraveler?
+    public let reservation: CNIReservation?
+    public let hotel: CNIHotel?
+    public let payment: CNIPayment?
+    public let partner: CNIPartner?
+
+    public init(traveler: CNITraveler?, reservation: CNIReservation?, hotel: CNIHotel?, payment: CNIPayment?, partner: CNIPartner?) {
+        self.traveler = traveler
+        self.reservation = reservation
+        self.hotel = hotel
+        self.payment = payment
+        self.partner = partner
     }
 
     public func deserialize() -> [String: Any] {
         var dict = [String: Any]()
-        
-        dict["stay"] = stay?.deserialize()
+
+        dict["traveler"] = traveler?.deserialize()
+        dict["reservation"] = reservation?.deserialize()
         dict["hotel"] = hotel?.deserialize()
-        dict["guest"] = guest?.deserialize()
+        dict["payment"] = payment?.deserialize()
+        dict["meta"] = ["partner": partner?.deserialize()]
         
         return dict
     }

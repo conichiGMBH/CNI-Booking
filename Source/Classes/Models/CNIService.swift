@@ -9,14 +9,14 @@
 import UIKit
 
 public class CNIService: CNIObject, CNIModelDelegate {
-    public var serviceDescription: String?
-    public var amount: Double?
-    public var currency: String?
-    
-    public func map(json: JSON) {
-        serviceDescription = json["description"].string
-        amount = json["amount"].double
-        currency = json["currency"].string
+    public let serviceDescription: String?
+    public let amount: Double?
+    public let currency: String?
+
+    public init(serviceDescription: String?, amount: Double?, currency: String?) {
+        self.serviceDescription = serviceDescription
+        self.amount = amount
+        self.currency = currency
     }
 
     public func deserialize() -> [String: Any] {

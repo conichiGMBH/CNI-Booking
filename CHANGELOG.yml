@@ -1,32 +1,13 @@
 ---
 upcoming:
-  version: 
-  notes: 
+  version:
+  notes:
 releases:
-- version: 1.1.2
+- version: 2.0.1
   notes:
-  - Introduce X-Protocol-Version http header
-  - Introduce hotel id and secondary_id fields
-- version: 1.1.1
-  notes:
-  - Remove undesirable assertionFailures from request manager
-- version: 1.1.0
-  notes:
-  - Remove get all bookings endpoint
-  - Update delete booking endpoint
-- version: 1.0.13
-  notes:
-  - Update base API url for dev and staging
-  - Refactor request manager and add tests
-  - Fix fastlane Carthage release
-- version: 1.0.12
-  notes:
-  - Add fastlane for releasing
-  - Add setup files
-  - Restructure project workspace
-- version: 1.0.11
-  notes: 
+  - Update cocoapod configuration
+  - Update sample app
+  - Update booking manager API
+  - Update models
 - version: 1.0.0
-  notes: 
-- version: 0.0.0
-  notes: 
+  notes:

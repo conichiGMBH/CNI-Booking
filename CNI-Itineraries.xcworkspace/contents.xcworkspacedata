@@ -5,12 +5,6 @@
       location = "group:CNI-Itineraries.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/joseph-mbp/conichi/CNI-Booking/Example/CNI-Itineraries Example.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Example/Pods/Pods.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

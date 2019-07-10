@@ -9,22 +9,28 @@
 import UIKit
 
 public class CNIAddress: CNIObject, CNIModelDelegate {
-    public var streetName: String?
-    public var cityName: String?
-    public var zipCode: String?
-    
-    public func map(json: JSON) {
-        streetName = json["street_name"].string
-        cityName = json["city_name"].string
-        zipCode = json["zip"].string
+    public let street: String?
+    public let city: String?
+    public let zip: String?
+    public let state: String?
+    public let country: String?
+
+    public init(street: String?, city: String?, zip: String?, state: String?, country: String?) {
+        self.street = street
+        self.city = city
+        self.zip = zip
+        self.state = state
+        self.country = country
     }
-    
+
     public func deserialize() -> [String: Any] {
         var dict = [String: Any]()
 
-        dict["street_name"] = streetName
-        dict["city_name"] = cityName
-        dict["zip"] = zipCode
+        dict["street"] = street
+        dict["city"] = city
+        dict["zip"] = zip
+        dict["state"] = state
+        dict["country"] = country
 
         return dict
     }

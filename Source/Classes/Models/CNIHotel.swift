@@ -9,26 +9,20 @@
 import UIKit
 
 public class CNIHotel: CNIObject, CNIModelDelegate {
-    public var id: String?
-    public var secondaryId: String?
-    public var name: String?
-    public var email: String?
-    public var address: CNIAddress?
-    public var phones: [String]?
-    
-    public func map(json: JSON) {
-        id = json["id"].string
-        secondaryId = json["secondary_id"].string
-        name = json["name"].string
-        email = json["email"].string
-        address = CNIAddress()
-        address?.map(json: json["address"])
-        phones = [String]()
-        for (_, phoneJSON) in json["phones"] {
-            if let phone = phoneJSON.string {
-                phones?.append(phone)
-            }
-        }
+    public let id: String?
+    public let secondaryId: String?
+    public let name: String?
+    public let email: String?
+    public let address: CNIAddress?
+    public let phones: [String]?
+
+    public init(id: String?, secondaryId: String?, name: String?, email: String?, address: CNIAddress?, phones: [String]?) {
+        self.id = id
+        self.secondaryId = secondaryId
+        self.name = name
+        self.email = email
+        self.address = address
+        self.phones = phones ?? []
     }
 
     public func deserialize() -> [String: Any] {

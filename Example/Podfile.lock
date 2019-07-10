@@ -1,5 +1,5 @@
 PODS:
-  - CNI-Itineraries (1.0.12)
+  - CNI-Itineraries (1.1.2)
 
 DEPENDENCIES:
   - CNI-Itineraries (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CNI-Itineraries: 20346a5cce58bed640278c4ac93576fceea0fa18
+  CNI-Itineraries: 7cb5e841a2687e77a2ec12cdbaa6508c88e7fe76
 
 PODFILE CHECKSUM: bd62abe69a65fac50fa2bd07d45693a1184ceaca
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.3
