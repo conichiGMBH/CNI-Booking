@@ -1,51 +1,109 @@
-# CNI-Itineraries
+# Migration guide 1.x.x -> 2.0.x
+## API changes
+### Instantiation
+Before (1.1.x)
+```
+let bookingManager = CNIBookingManager(
+    username: "<username>",
+    password: "<password>",
+    consumerKey: "<consumerKey>",
+    environment: "staging")
+```
+After (2.0.x)
+```
+let bookingManager = CNIBookingManager(
+    environment: .staging,
+    apiToken: token,
+    isTesting: true)
+```
+The `apiToken` for each environment will be provided separately.
 
-[![Version](https://img.shields.io/cocoapods/v/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries )
-[![License](https://img.shields.io/cocoapods/l/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries )
-[![Platform](https://img.shields.io/cocoapods/p/CNI-Itineraries.svg?style=flat)](http://cocoapods.org/pods/CNI-Itineraries)
+### Create a booking
+Before (1.1.x)
+```
+let guest: CNIGuest = ...
+let hotel: CNIHotel = ...
+let stay: CNIStay = ...
+let data = ["guest": guest.deserialize(),
+            "hotel": hotel.deserialize(),
+            "stay": stay.deserialize()]
 
-## Example
+bookingManager.postBookingWith(
+      data: data,         
+      success: { (result: Bool) in
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+      },
+      error: { (error: Error) in
 
-## Installation
+      })
+```
+After (2.0.x)
+```
+let booking: CNIBooking = ...
+let source = "CYTRIC_MOBILE"
 
-CNI-Itineraries is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+bookingManager.postBooking(
+      source: source,
+      booking: booking,
+      completion: { (response: CNIResponse<CNIStatus>) in
 
-```ruby
-pod 'CNI-Itineraries'
+      }
+)
+```
+(!) IMPORTANT: `source` argument tells the API where does the booking come from. This argument is present for cases such as when a library client sends us bookings from different sources.
+<br/>For instance, Cytric should use `"CYTRIC_MOBILE"` for all their bookings as stated in the example above.
+
+### Delete a booking
+Before (1.1.x)
+```
+let guestId = "1234"
+let reservationNumber = "EU-1337"
+
+bookingManager.deleteBookingWith(
+      guestId: guestId,
+      reservationNumber: reservationNumber,
+      success: { (result: Bool) in
+
+      },
+      error: { (error: Error) in
+
+      }
+)
+```
+After (2.0.x)
+```
+let travelerId = "1234"
+let partnerId = "5678"
+let reservationNumber = "EU-1337"
+let source = "CYTRIC_MOBILE"
+
+bookingManager.cancelBooking(
+      source: source,
+      travelerId: travelerId,
+      reservationNumber: reservationNumber,
+      partnerPrimaryId: partnerId,
+      partnerSecondaryIds: nil,
+      completion: { (response: CNIResponse<CNIStatus>) in
+
+      }
+)
+```
+(!) IMPORTANT: `source` argument tells the API where does the booking come from. This argument is present for cases such as when a library client sends us bookings from different sources.
+<br/>For instance, Cytric should use `"CYTRIC_MOBILE"` for all their bookings as stated in the example above.
+
+
+## General info
+
+### API response
+Every request to Itineraries API returns `CNIResponse<CNIStatus>`.<br/>
+You can check if the request was successful by checking ` CNIResponse.isSuccessful`.
+It will return `false` in case if HTTP status code of the response is different from 2XX.
+
+To obtain detailed information with the backend API response, you can use `CNIStatus`
+
+```
+let response: CNIResponse<CNIStatus> = ...
+let status: CNIStatus = response.result
 ```
 
-## Usage
-* CNIBookingManager init with username, password, consumer key, environment
-
-* `import CNI_Itineraries`
-* Use those `CNIBookingManager` methods
-
-```swift
-public class func getBookingsFor(guestId: String,
-success: @escaping (_ results: [CNIBooking]) -> Void,
-failure: @escaping (_ error: Error) -> Void)
-```
-```swift
-public class func postBookingWith(data: [String: Any],
-success: @escaping (_ result: Bool) -> Void,
-failure: @escaping (_ error: Error) -> Void)
-```
-```swift
-public class func deleteBookingWith(
-guestId: String,
-reservationNumber: String,
-success: @escaping (_ result: Bool) -> Void,
-failure: @escaping (_ error: Error) -> Void)
-```
-
-
-## Author
-
-Joseph Tseng, joseph.tseng@conichi.com
-
-## License
-
-CNI-Itineraries is available under the MIT license. See the LICENSE file for more info.
+In case the request has failed (`CNIResponse.isSuccessful == false`) - check `CNIStatus.reason` for more detailed information.
