@@ -9,6 +9,7 @@
 import UIKit
 
 struct CNIBookingConstants {
+    static let bookingsEndpoint = "booking/retrieve-processed"
     static let bookingEndpoint = "booking"
     static let cancelBookingEndpoint = "booking/cancel"
 }
@@ -23,7 +24,45 @@ public class CNIBookingManager: NSObject {
                                            token: apiToken,
                                            isTesting: isTesting)
     }
-    
+
+    public func getBookings(source: String,
+                            travelerID: String,
+                            partnerPrimaryId: String,
+                            partnerSecondaryIds: [String]?,
+                            success: @escaping completionClosure<[CNIBooking]>,
+                            failure: @escaping completionClosure<CNIStatus>) {
+        guard let requestManager = requestManager else {
+            failure(CNIResponse(result: nil, error: CNIHttpError.unauthorized, isSuccessful: false))
+            return
+        }
+
+        let traveler = CNITraveler(id: travelerID)
+        let partner = CNIPartner(primaryId: partnerPrimaryId, secondaryIds: partnerSecondaryIds)
+        let booking = CNIBooking(traveler: traveler, reservation: nil, hotel: nil, payment: nil, partner: partner)
+        let params = booking.deserialize()
+
+        requestManager.requestAction(endpoint: CNIBookingConstants.bookingsEndpoint, method: .post(params), source: source) {
+            (response: CNIResponse<Data>) in
+            guard response.isSuccessful, let data = response.result else {
+                let status = CNIStatus(data: response.result)
+                DispatchQueue.main.async {
+                    failure(CNIResponse(result: status, error: response.error, isSuccessful: false))
+                }
+                return
+            }
+            let json = JSON(data)
+            var bookings = [CNIBooking]()
+            for (_, bookingJSON) in json["bookings"] {
+                let booking = CNIBooking()
+                booking.map(json: bookingJSON)
+                bookings.append(booking)
+            }
+            DispatchQueue.main.async {
+                success(CNIResponse(result: bookings, error: response.error, isSuccessful: true))
+            }
+        }
+    }
+
     public func postBooking(source: String,
                             booking: CNIBooking,
                             completion: @escaping completionClosure<CNIStatus>) {

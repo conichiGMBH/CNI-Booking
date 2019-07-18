@@ -50,6 +50,7 @@ enum HttpMethod: Equatable {
             return "POST"
         }
     }
+    
     // This is mainly for Nimble and testing
     static func == (lhs: HttpMethod, rhs: HttpMethod) -> Bool {
         switch (lhs, rhs) {

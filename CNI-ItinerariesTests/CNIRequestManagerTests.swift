@@ -39,13 +39,23 @@ class MockURLSession: URLSession {
 }
 
 final class CNIRequestManagerTests: QuickSpec {
-    let subject = CNIRequestManager(username: "test-user", password: "test", consumerKey: "test-key", environment: "Staging")
-    
+    let subject = CNIRequestManager(environment: .staging, token: "token", isTesting: true)
+
     override func spec() {
         describe(".init") {
             it("sets X-Protocol-Version in headers") {
                 let protocolVersion = self.subject.urlSession.configuration.httpAdditionalHeaders?["X-Protocol-Version"] as? String
                 expect(protocolVersion).to(equal(CNINetworkConfiguration.protocolVersion))
+            }
+
+            it("sets token as X-Authorization header"){
+                let token = self.subject.urlSession.configuration.httpAdditionalHeaders?["X-Authorization"] as? String
+                expect(token).to(equal("token"))
+            }
+
+            it("sets X-Test header") {
+                let test = self.subject.urlSession.configuration.httpAdditionalHeaders?["X-Test"] as? Bool
+                expect(test).to(equal(true))
             }
         }
 
@@ -58,65 +68,88 @@ final class CNIRequestManagerTests: QuickSpec {
             
             context("when there's an error") {
                 it("passes the error by failure closure") {
-                    var resultError: NSError!
+                    var response: CNIResponse<Data>!
                     let expectedError = NSError(domain: "com.conichi.error", code: 123, userInfo: [:])
                     mockURLSession.error = expectedError
-                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { _ in }, failure: { error in
-                        resultError = error as NSError
+
+                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, completion: {
+                        (r: CNIResponse<Data>) in
+                        response = r
                     })
-                    expect(resultError).to(equal(expectedError))
+
+                    expect(response.isSuccessful).toEventually(beFalse())
+                    expect(response.error).toEventually(matchError(expectedError))
+                    expect(response.result).toEventually(beNil())
                 }
             }
             
             context("when response isn't a HTTPURLResponse") {
                 it("returns and doesn't call callbacks") {
-                    var successCalled = false
-                    var failureCalled = false
+                    var completionCalled = false
+
                     mockURLSession.response = URLResponse(url: URL(string: "url")!, mimeType: "application/json", expectedContentLength: 10, textEncodingName: nil)
-                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { _ in
-                        successCalled = true
-                    }, failure: { _ in
-                        failureCalled = true
+
+                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, completion: {
+                        _ in
+                        completionCalled = true
                     })
-                    expect(successCalled).to(beFalse())
-                    expect(failureCalled).to(beFalse())
+
+                    expect(completionCalled).to(beFalse())
                 }
             }
             
             context("when status code of response is smaller than 300") {
-                it("passes the data by success closure") {
-                    var resultData: Data!
+                it("calls completion handler with CNIResponse containing the data") {
+                    var response: CNIResponse<Data>!
                     let expectedData = Data(bytes: [0, 1, 0, 1])
                     mockURLSession.data = expectedData
                     mockURLSession.response = HTTPURLResponse(url: URL(string: "url")!, statusCode: 200, httpVersion: "HTTP/2.0", headerFields: [:])
-                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { data in
-                        resultData = data
-                    }, failure: { _ in })
-                    expect(resultData).to(equal(expectedData))
+
+                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, completion: {
+                        (r: CNIResponse<Data>) in
+                        response = r
+                    })
+
+                    expect(response.isSuccessful).toEventually(beTrue())
+                    expect(response.error).toEventually(beNil())
+                    expect(response.result).toEventually(equal(expectedData))
                 }
             }
             
             context("when status code of response is equal or more than 300") {
                 it("passed an the corresponding error by failure closure") {
-                    var resultError: Error!
+                    var response: CNIResponse<Data>!
+
                     let expectedError = CNIHttpError.badRequest
+                    let expectedData = Data(bytes: [0, 1, 0, 1])
+                    mockURLSession.data = expectedData
                     mockURLSession.response = HTTPURLResponse(url: URL(string: "url")!, statusCode: 400, httpVersion: "HTTP/2.0", headerFields: [:])
-                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { _ in }, failure: { error in
-                        resultError = error
+
+                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, completion: {
+                        (r: CNIResponse<Data>) in
+                        response = r
                     })
-                    expect(resultError).to(matchError(expectedError))
+
+                    expect(response.result).toEventually(equal(expectedData))
+                    expect(response.isSuccessful).toEventually(beFalse())
+                    expect(response.error).toEventually(matchError(expectedError))
                 }
             }
             
             context("when status code of response is less than 300 but there's no data given") {
                 it("passed an the corresponding error by failure closure") {
-                    var resultError: Error!
+                    var response: CNIResponse<Data>!
+
                     let expectedError = CNIHttpError.unknownError
                     mockURLSession.response = HTTPURLResponse(url: URL(string: "url")!, statusCode: 200, httpVersion: "HTTP/2.0", headerFields: [:])
-                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, success: { _ in }, failure: { error in
-                        resultError = error
+
+                    self.subject.task(with: URLRequest(url: URL(string: "url")!), urlSession: mockURLSession, completion: {
+                        (r: CNIResponse<Data>) in
+                        response = r
                     })
-                    expect(resultError).to(matchError(expectedError))
+                    expect(response.error).toEventually(matchError(expectedError))
+                    expect(response.isSuccessful).toEventually(beFalse())
+                    expect(response.result).toEventually(beNil())
                 }
             }
         }
@@ -125,17 +158,17 @@ final class CNIRequestManagerTests: QuickSpec {
             context("when doing snapshot testing") {
                 it("should match previous recorded raw data") {
                     assertSnapshot(
-                        matching: self.subject.request(endpoint: CNIBookingConstants.bookingsEndpoint)!,
+                        matching: self.subject.request(endpoint: CNIBookingConstants.bookingEndpoint, source: "")!,
                         as: .raw
                     )
                     // This will break before iOS 11 because JSON's order can't be maintained and the diff will fail
                     if #available(iOS 11.0, *) {
                         assertSnapshot(
-                            matching: self.subject.request(endpoint: CNIBookingConstants.bookingsEndpoint, method: .post(["test1": "1 is tested", "test2": "2 is tested", "test3": ["test4": "test 3 & 4 are tested"]]))!,
+                            matching: self.subject.request(endpoint: CNIBookingConstants.bookingEndpoint, method: .post(["test1": "1 is tested", "test2": "2 is tested", "test3": ["test4": "test 3 & 4 are tested"]]), source: "")!,
                             as: .raw
                         )
                         assertSnapshot(
-                            matching: self.subject.request(endpoint: CNIBookingConstants.bookingsEndpoint, method: .delete(["test1": "1 is tested", "test2": "2 is tested", "test3": ["test4": "test 3 & 4 are tested"]]))!,
+                            matching: self.subject.request(endpoint: CNIBookingConstants.bookingEndpoint, method: .delete(["test1": "1 is tested", "test2": "2 is tested", "test3": ["test4": "test 3 & 4 are tested"]]), source: "")!,
                             as: .raw
                         )
                     }
@@ -144,7 +177,7 @@ final class CNIRequestManagerTests: QuickSpec {
             
             context("when endpoint is invalid") {
                 it("should return nil") {
-                    expect(self.subject.request(endpoint: "123 45")).to(beNil())
+                    expect(self.subject.request(endpoint: "123 45", source: "")).to(beNil())
                 }
             }
         }
@@ -152,7 +185,7 @@ final class CNIRequestManagerTests: QuickSpec {
         describe(".requestAction") {
             context("when the endpoint is invalid") {
                 it("throws assertion") {
-                    expect(self.subject.requestAction(endpoint: "123 45", method: .get, success: { _ in }, failure: { _ in }))
+                    expect(self.subject.requestAction(endpoint: "123 45", method: .get, source: "", completion: { _ in}))
                     .to(throwAssertion())
                 }
             }

@@ -10,10 +10,11 @@ import UIKit
 
 public class CNIBooking: CNIObject, CNIModelDelegate {
     public let traveler: CNITraveler?
-    public let reservation: CNIReservation?
+    public private(set) var reservation: CNIReservation?
     public let hotel: CNIHotel?
     public let payment: CNIPayment?
     public let partner: CNIPartner?
+    public private(set) var acceptsMilesAndMore: Bool?
 
     public init(traveler: CNITraveler?, reservation: CNIReservation?, hotel: CNIHotel?, payment: CNIPayment?, partner: CNIPartner?) {
         self.traveler = traveler
@@ -21,6 +22,16 @@ public class CNIBooking: CNIObject, CNIModelDelegate {
         self.hotel = hotel
         self.payment = payment
         self.partner = partner
+    }
+
+    internal convenience override init() {
+        self.init(traveler: nil, reservation: nil, hotel: nil, payment: nil, partner: nil)
+    }
+
+    public func map(json: JSON) {
+        reservation = CNIReservation()
+        reservation?.map(json: json["stay"])
+        acceptsMilesAndMore = json["accepts_miles_and_more"].bool
     }
 
     public func deserialize() -> [String: Any] {

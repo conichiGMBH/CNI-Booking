@@ -18,6 +18,45 @@ let bookingManager = CNIBookingManager(
 ```
 The `apiToken` for each environment will be provided separately.
 
+### Get bookings
+
+Before (1.1.x)
+```
+bookingManager.getBookingsFor(
+      guestId: "1234",
+      success: { (itineraries: [CNIBooking]) in
+
+      },
+      failure: { (error: Error) in  
+
+      }
+)
+```
+
+After (2.0.x)
+```
+let source = "CYTRIC_MOBILE"
+let travelerId = "1234"
+let partnerId = "5678"
+
+bookingManager.getBookings(
+      source: source,
+      travelerID: travelerId,
+      partnerPrimaryId: partnerId,
+      partnerSecondaryIds: nil,
+      success: {
+        (response: CNIResponse<[CNIBooking]>) in
+
+      },
+      failure: {
+        (response: CNIResponse<CNIStatus>) in
+
+      }
+)
+```
+(!) IMPORTANT: `source` argument tells the API where does the booking come from. This argument is present for cases such as when a library client sends us bookings from different sources.
+<br/>For instance, Cytric should use `"CYTRIC_MOBILE"` for all their bookings as stated in the example above.
+
 ### Create a booking
 Before (1.1.x)
 ```
@@ -33,9 +72,10 @@ bookingManager.postBookingWith(
       success: { (result: Bool) in
 
       },
-      error: { (error: Error) in
+      failure: { (error: Error) in
 
-      })
+      }
+)
 ```
 After (2.0.x)
 ```
@@ -65,7 +105,7 @@ bookingManager.deleteBookingWith(
       success: { (result: Bool) in
 
       },
-      error: { (error: Error) in
+      failure: { (error: Error) in
 
       }
 )

@@ -1,3 +1,4 @@
-GET https://app.staging.conichi.com/api/v3/itinerary/bookings
+GET https://transformer.staging.conichi.com/api/2/booking
 Accept: application/json
 Content-Type: application/json
+X-Source: 

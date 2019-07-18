@@ -15,161 +15,281 @@ class MockRequestManager: CNIRequestManager {
     var endpoint: String?
     var method: HttpMethod?
     var isRequestSuccessful = true
-    let bookingJSONString = """
-    {
-        "bookings": [{
-            "guest": {
-                "last_name": "Tseng",
-                "phone": "013333333333",
-                "email": "joseph.tseng@conichi.com",
-                "id": "42424242",
-                "first_name": "Joseph"
-            },
-            "hotel": {
-                "id": "EU-666-13",
-                "secondary_id": "537026",
-                "phones": [
-                "013333333333"],
-                "email": "conichi@conichi.com",
-                "name": "conichi",
-                "address": {
-                    "street_name": "Ohlauer Str. 43",
-                    "zip": "10999",
-                    "city_name": "Berlin"
-                }
-            },
-            "stay": {
-                "room_rate": "42",
-                "type": "email",
-                "arrival_date": "2018-06-26",
-                "reservation_number": "1545302100.89207",
-                "services": [{
-                "amount": 42,
-                "currency": "€",
-                "description": "pool"
-                }, {
-                "amount": 3,
-                "currency": "€",
-                "description": "netflix"
-                }],
-                "departure_date": "2018-06-27",
-                "room_type": "penthouse"
-            }
-        }]
-    }
-"""
-    
-    override func requestAction(endpoint: String, method: HttpMethod, success: @escaping successClosure<Data>, failure: @escaping failureClosure) {
+    var data: Data!
+
+    override func requestAction(endpoint: String, method: HttpMethod, source: String, completion: @escaping completionClosure<Data>) {
         self.endpoint = endpoint
         self.method = method
-        if isRequestSuccessful {
-            success(bookingJSONString.data(using: .utf8)!)
-        } else {
-            failure(CNIHttpError.unknownError)
-        }
+        completion(CNIResponse(result: data, error: nil, isSuccessful: isRequestSuccessful))
     }
 }
 
 final class CNIBookingManagerTests: QuickSpec {
+    let successCode = 200
+    let successMessage = "Success"
+    let successStatus = "SUCCESS"
+    let failureCode = 400
+    let failureReason = "Failure"
+    let failureStatus = "ERROR"
+
     override func spec() {
-        let subject = CNIBookingManager(username: "test-user", password: "test", consumerKey: "test-key", environment: "Staging")
+        let subject = CNIBookingManager(environment: .staging, apiToken: "token", isTesting: true)
         var requestManager: MockRequestManager!
         
         beforeEach {
-            requestManager = MockRequestManager(username: "test-user", password: "test", consumerKey: "test-key", environment: "Staging")
+            requestManager = MockRequestManager(environment: .staging, token: "token", isTesting: true)
             subject.requestManager = requestManager
         }
-        
-        describe(".getBookingsFor") {
-            it("uses bookingsForID endpoint and GET method") {
-                subject.getBookingsFor(guestId: "123", success: { _ in }, failure: { _ in })
-                expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsForIdEndpoint + "123"))
-                expect(requestManager.method).to(equal(HttpMethod.get))
+
+        describe(".getBookings") {
+            let travelerdID = "123"
+            let partnerID = "789"
+
+            it("uses the bookings endpoint and POST method") {
+                subject.getBookings(
+                    source: "",
+                    travelerID: travelerdID,
+                    partnerPrimaryId: partnerID,
+                    partnerSecondaryIds: nil,
+                    success: {_ in},
+                    failure: {_ in}
+                )
+
+                let traveler = CNITraveler(id: travelerdID)
+                let partner = CNIPartner(primaryId: partnerID, secondaryIds: nil)
+                let booking = CNIBooking(traveler: traveler, reservation: nil, hotel: nil, payment: nil, partner: partner)
+                let expectedPayload = booking.deserialize()
+
+                expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsEndpoint))
+                expect(requestManager.method).to(equal(HttpMethod.post(expectedPayload)))
             }
-            
+
             context("when request succeeds") {
-                it("returns correct booking data") {
-                    var resultBookings: [CNIBooking]!
-                    subject.getBookingsFor(guestId: "", success: { (bookings) in
-                        resultBookings = bookings
-                    }, failure: { _ in })
-                    expect(resultBookings.first!.guest!.guestId!).toEventually(equal("42424242"))
-                    expect(resultBookings.first!.hotel!.name!).toEventually(equal("conichi"))
+                let bookings: [String: Any] = [
+                    "bookings": [
+                        [
+                            "stay": ["reservation_number": "123"],
+                            "accepts_miles_and_more": true
+                        ],
+                        [
+                            "stay": ["reservation_number": "345"],
+                            "accepts_miles_and_more": true
+                        ],
+                        [
+                            "stay": ["reservation_number": "678"],
+                            "accepts_miles_and_more": true
+                        ]
+                    ]
+                ]
+
+                beforeEach {
+                    let bookingsData = try! JSONSerialization.data(withJSONObject: bookings, options: .prettyPrinted)
+                    requestManager.data = bookingsData
+                    requestManager.isRequestSuccessful = true
+                }
+
+                it("returns successful CNIResponse containing array of bookings") {
+                    var successResponse: CNIResponse<[CNIBooking]>?
+                    var failureResponse: CNIResponse<CNIStatus>?
+
+                    subject.getBookings(
+                        source: "",
+                        travelerID: travelerdID,
+                        partnerPrimaryId: partnerID,
+                        partnerSecondaryIds: nil,
+                        success: {
+                            (r: CNIResponse<[CNIBooking]>) in
+                            successResponse = r
+                        },
+                        failure: {
+                            (r: CNIResponse<CNIStatus>) in
+                            failureResponse = r
+                        }
+                    )
+
+                    expect(failureResponse).to(beNil())
+                    expect(successResponse?.isSuccessful).toEventually(equal(true))
+                    expect(successResponse?.error).toEventually(beNil())
+                    expect(successResponse?.result).toEventuallyNot(beNil())
+                    expect(successResponse?.result?.count).toEventually(equal(3))
+                    expect(successResponse?.result?.first?.reservation?.reservationNumber).toEventually(equal("123"))
+                    expect(successResponse?.result?.first?.acceptsMilesAndMore).toEventually(beTrue())
                 }
             }
-            
+
             context("when request fails") {
-                it("gives an error") {
-                    var resultError: Error!
+                beforeEach {
+                    requestManager.data = self.failureData()
                     requestManager.isRequestSuccessful = false
-                    subject.getBookingsFor(guestId: "123", success: { _ in }, failure: { (error) in
-                        resultError = error
-                    })
-                    expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
+                }
+
+                it("returns unsuccessful CNIResponse containing status") {
+                    var successResponse: CNIResponse<[CNIBooking]>?
+                    var failureResponse: CNIResponse<CNIStatus>?
+
+                    subject.getBookings(
+                        source: "",
+                        travelerID: travelerdID,
+                        partnerPrimaryId: partnerID,
+                        partnerSecondaryIds: nil,
+                        success: {
+                            (r: CNIResponse<[CNIBooking]>) in
+                            successResponse = r
+                        },
+                        failure: {
+                            (r: CNIResponse<CNIStatus>) in
+                            failureResponse = r
+                        }
+                    )
+
+                    expect(successResponse).to(beNil())
+                    expect(failureResponse?.isSuccessful).toEventually(equal(false))
+                    expect(failureResponse?.error).toEventually(beNil())
+                    expect(failureResponse?.result).toEventuallyNot(beNil())
+                    expect(failureResponse?.result?.code).toEventually(equal(self.failureCode))
+                    expect(failureResponse?.result?.reason).toEventually(equal(self.failureReason))
+                    expect(failureResponse?.result?.status).toEventually(equal(self.failureStatus))
                 }
             }
         }
         
-        describe(".postBookingWith") {
-            it("uses bookings endpoint and POST method") {
-                subject.postBookingWith(data: ["test": "123"], success: { _ in }, failure: { _ in })
-                expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingsEndpoint))
-                expect(requestManager.method).to(equal(HttpMethod.post(["test": "123"])))
+        describe(".postBooking") {
+            var booking: CNIBooking!
+
+            beforeEach {
+                booking = CNIBooking(traveler: nil, reservation: nil, hotel: nil, payment: nil, partner: nil)
+            }
+
+            it("uses booking endpoint and POST method") {
+                subject.postBooking(source: "", booking: booking, completion: {_ in})
+                expect(requestManager.endpoint).to(equal(CNIBookingConstants.bookingEndpoint))
+                expect(requestManager.method).to(equal(HttpMethod.post(booking.deserialize())))
             }
             
             context("when request succeeds") {
-                it("returns true") {
-                    var expectedResult: Bool!
-                    subject.postBookingWith(data: [:], success: { (result) in
-                        expectedResult = result
-                    }, failure: { _ in })
-                    expect(expectedResult).toEventually(equal(true))
+                beforeEach {
+                    requestManager.data = self.successData()
+                    requestManager.isRequestSuccessful = true
+                }
+
+                it("returns successful CNIResponse containing status") {
+                    var response: CNIResponse<CNIStatus>!
+
+                    subject.postBooking(source: "", booking: booking) { (r: CNIResponse<CNIStatus>) in
+                        response = r
+                    }
+
+                    expect(response.isSuccessful).toEventually(equal(true))
+                    expect(response.error).toEventually(beNil())
+                    expect(response.result).toEventuallyNot(beNil())
+                    expect(response.result?.code).toEventually(equal(self.successCode))
+                    expect(response.result?.message).toEventually(equal(self.successMessage))
+                    expect(response.result?.status).toEventually(equal(self.successStatus))
                 }
             }
             
             context("when request fails") {
-                it("gives an error") {
-                    var resultError: Error!
+                beforeEach {
+                    requestManager.data = self.failureData()
                     requestManager.isRequestSuccessful = false
-                    subject.postBookingWith(data: [:], success: { _ in }, failure: { (error) in
-                        resultError = error
-                    })
-                    expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
+                }
+
+                it("returns unsuccessful CNIResponse containing status") {
+                    var response: CNIResponse<CNIStatus>!
+
+                    subject.postBooking(source: "", booking: booking) { (r: CNIResponse<CNIStatus>) in
+                        response = r
+                    }
+
+                    expect(response.isSuccessful).toEventually(equal(false))
+                    expect(response.error).toEventually(beNil())
+                    expect(response.result).toEventuallyNot(beNil())
+                    expect(response.result?.code).toEventually(equal(self.failureCode))
+                    expect(response.result?.reason).toEventually(equal(self.failureReason))
+                    expect(response.result?.status).toEventually(equal(self.failureStatus))
                 }
             }
         }
         
         describe(".deleteBookingWith") {
+            let travelerdID = "123"
+            let reservationNumber = "456"
+            let partnerID = "789"
+
             it("uses cancel booking endpoint and POST method") {
-                subject.deleteBookingWith(guestId: "123", reservationNumber: "456", success: { _ in }, failure: { _ in })
-                var expectedPayload = [String: Any]()
-                expectedPayload["guest"] = ["id": "123"]
-                expectedPayload["stay"] = ["reservation_number": "456"]
+                subject.cancelBooking(source: "", travelerId: travelerdID, reservationNumber: reservationNumber, partnerPrimaryId: partnerID, partnerSecondaryIds: nil, completion: { _ in })
+
+                let traveler = CNITraveler(id: travelerdID)
+                let reservation = CNIReservation(reservationNumber: reservationNumber)
+                let partner = CNIPartner(primaryId: partnerID, secondaryIds: nil)
+                let booking = CNIBooking(traveler: traveler, reservation: reservation, hotel: nil, payment: nil, partner: partner)
+                let expectedPayload = booking.deserialize()
 
                 expect(requestManager.endpoint).to(equal(CNIBookingConstants.cancelBookingEndpoint))
                 expect(requestManager.method).to(equal(HttpMethod.post(expectedPayload)))
             }
             
             context("when request succeeds") {
-                it("returns true") {
-                    var expectedResult: Bool!
-                    subject.deleteBookingWith(guestId: "123", reservationNumber: "456", success: { (result) in
-                        expectedResult = result
-                    }, failure: { _ in })
-                    expect(expectedResult).toEventually(equal(true))
+                beforeEach {
+                    requestManager.data = self.successData()
+                    requestManager.isRequestSuccessful = true
+                }
+
+                it("returns successful CNIResponse containing status") {
+                    var response: CNIResponse<CNIStatus>!
+                    subject.cancelBooking(source: "", travelerId: travelerdID, reservationNumber: reservationNumber, partnerPrimaryId: partnerID, partnerSecondaryIds: nil, completion: {
+                        (r: CNIResponse<CNIStatus>) in
+                        response = r
+                    })
+
+                    expect(response.isSuccessful).toEventually(equal(true))
+                    expect(response.error).toEventually(beNil())
+                    expect(response.result).toEventuallyNot(beNil())
+                    expect(response.result?.code).toEventually(equal(self.successCode))
+                    expect(response.result?.message).toEventually(equal(self.successMessage))
+                    expect(response.result?.status).toEventually(equal(self.successStatus))
                 }
             }
             
             context("when request fails") {
-                it("gives an error") {
-                    var resultError: Error!
+                beforeEach {
+                    requestManager.data = self.failureData()
                     requestManager.isRequestSuccessful = false
-                    subject.deleteBookingWith(guestId: "123", reservationNumber: "456", success: { _ in }, failure: { (error) in
-                        resultError = error
-                    })
-                    expect(resultError).toEventually(matchError(CNIHttpError.unknownError))
                 }
+
+                it("returns unsuccessful CNIResponse containing status") {
+                    var response: CNIResponse<CNIStatus>!
+
+                    subject.cancelBooking(source: "", travelerId: travelerdID, reservationNumber: reservationNumber, partnerPrimaryId: partnerID, partnerSecondaryIds: nil, completion: {
+                        (r: CNIResponse<CNIStatus>) in
+                        response = r
+                    })
+
+                    expect(response.isSuccessful).toEventually(equal(false))
+                    expect(response.error).toEventually(beNil())
+                    expect(response.result).toEventuallyNot(beNil())
+                    expect(response.result?.code).toEventually(equal(self.failureCode))
+                    expect(response.result?.reason).toEventually(equal(self.failureReason))
+                    expect(response.result?.status).toEventually(equal(self.failureStatus))                }
             }
         }
+    }
+
+    func successData() -> Data {
+        let json: [String: Any] = [
+            "status": successStatus,
+            "code": successCode,
+            "message": successMessage]
+        let successData = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        return successData
+    }
+
+    func failureData() -> Data {
+        let json: [String: Any] = [
+            "status": failureStatus,
+            "code": failureCode,
+            "reason": failureReason]
+        let failureData = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        return failureData
     }
 }

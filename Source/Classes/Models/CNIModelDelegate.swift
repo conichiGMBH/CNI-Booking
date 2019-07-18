@@ -10,4 +10,9 @@ import Foundation
 
 public protocol CNIModelDelegate {
     func deserialize() -> [String: Any]
+    func map(json: JSON)
+}
+
+public extension CNIModelDelegate {
+    func map(json: JSON) { }
 }

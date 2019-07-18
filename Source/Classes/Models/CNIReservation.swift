@@ -21,7 +21,7 @@ public enum CNIReservationType: String {
 public class CNIReservation: CNIObject, CNIModelDelegate {
     public let arrivalDate: Date?
     public let departureDate: Date?
-    public let reservationNumber: String?
+    public private(set) var reservationNumber: String?
     public let reservationState: CNIReservationState?
     public let reservationType: CNIReservationType?
     public let numberOfGuests: Int?
@@ -43,6 +43,14 @@ public class CNIReservation: CNIObject, CNIModelDelegate {
 
     internal convenience init(reservationNumber: String) {
         self.init(arrivalDate: nil, departureDate: nil, reservationNumber: reservationNumber, reservationState: nil, reservationType: nil, numberOfGuests: nil, roomType: nil, roomRate: nil, services: nil)
+    }
+
+    internal convenience override init() {
+        self.init(arrivalDate: nil, departureDate: nil, reservationNumber: nil, reservationState: nil, reservationType: nil, numberOfGuests: nil, roomType: nil, roomRate: nil, services: nil)
+    }
+
+    public func map(json: JSON) {
+        reservationNumber = json["reservation_number"].string
     }
 
     public func deserialize() -> [String: Any] {
