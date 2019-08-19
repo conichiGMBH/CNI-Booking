@@ -1,0 +1,15 @@
+---
+upcoming:
+  version: 2.0.2
+  notes:
+  - Update unit tests
+  - Add getBookings endpoint
+releases:
+- version: 2.0.1
+  notes:
+  - Update cocoapod configuration
+  - Update sample app
+  - Update booking manager API
+  - Update models
+- version: 1.0.0
+  notes:

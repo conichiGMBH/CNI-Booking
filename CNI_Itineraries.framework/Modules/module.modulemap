@@ -1,0 +1,11 @@
+framework module CNI_Itineraries {
+  umbrella header "CNI_Itineraries.h"
+
+  export *
+  module * { export * }
+}
+
+module CNI_Itineraries.Swift {
+    header "CNI_Itineraries-Swift.h"
+    requires objc
+}

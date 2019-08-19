@@ -1,6 +1,0 @@
-DELETE https://transformer.staging.conichi.com/api/2/booking
-Accept: application/json
-Content-Type: application/json
-X-Source: 
-
-{"test1":"1 is tested","test2":"2 is tested","test3":{"test4":"test 3 & 4 are tested"}}

@@ -1,7 +1,8 @@
 ---
 upcoming:
-  version: 
-  notes: 
+  version: 2.0.1
+  notes:
+  - Close sources
 releases:
 - version: 2.0.2
   notes:
@@ -14,4 +15,4 @@ releases:
   - Update booking manager API
   - Update models
 - version: 1.0.0
-  notes: 
+  notes:
