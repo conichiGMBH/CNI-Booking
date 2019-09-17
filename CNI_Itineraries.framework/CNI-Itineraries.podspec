@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CNI-Itineraries'
-  s.version          = '2.0.1'
+  s.version          = '2.0.3'
   s.swift_version    = '4.2'
   s.summary          = 'provide methods to push, retrieve and delete bookings from conichi backend'
 
@@ -23,7 +23,6 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/conichiGMBH/CNI-Booking.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
-
-  s.source_files = 'Source/Classes/**/*'
-
+  s.vendored_frameworks = "CNI_Itineraries.framework"
+  s.module_name = 'CNI_Itineraries'
 end
